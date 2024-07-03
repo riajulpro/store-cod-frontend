@@ -1,3 +1,4 @@
+import ContactUsPage from "@/app/(pages)/contact-us/page";
 import Banner from "@/components/home/Banner";
 import Categories from "@/components/home/Categories";
 import DeliveryAd from "@/components/home/DeliveryAd";
@@ -16,6 +17,7 @@ const HomeView = () => {
       <PopulerProduct />
       <DeliveryAd />
       <Review />
+      <ContactUsPage className="mt-[50px] rounded-[15px]" />
       <DownloadApp />
     </>
   );

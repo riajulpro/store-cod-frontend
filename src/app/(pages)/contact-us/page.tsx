@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail } from "lucide-react";
+import { Mail, SendHorizontal } from "lucide-react";
 
-const ContactUsPage = () => {
+const ContactUsPage = ({ className = "" }: { className?: string }) => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
@@ -15,7 +15,9 @@ const ContactUsPage = () => {
 
   return (
     <>
-      <div className="min-h-96 bg-green-100 flex justify-center flex-col gap-2 items-center bg-[url('/images/banner-10.png')] bg-cover bg-center">
+      <div
+        className={`min-h-96 bg-green-100 flex justify-center flex-col gap-2 items-center bg-[url('/images/banner-10.png')] bg-cover bg-center  ${className}`}
+      >
         <h4 className="text-slate-600 text-lg font-bold">
           How can we help you?
         </h4>
@@ -54,8 +56,26 @@ const ContactUsPage = () => {
                 <Textarea placeholder="Type your message here." id="message" />
               </div>
 
-              <Button type="submit">
-                <Mail className="mr-2 h-4 w-4" /> Send Message
+              <Button
+                type="submit"
+                className="bg-primaryMat text-white hover:bg-orange-400 py-[5px] group/submit overflow-hidden flex items-center justify-center gap-[5px]"
+              >
+                Send Message
+                <span className="relative top-[-7px]">
+                  <span className="absolute top-0 left-0">
+                    <Mail
+                      className="mr-2 h-4 w-4 top-0 group-hover/submit:top-[-50px] group-hover/submit:rotate-[-15deg] relative"
+                      style={{ transition: "0.3s" }}
+                    />
+                  </span>
+
+                  <span className="absolute top-0 left-0">
+                    <SendHorizontal
+                      className="mr-2 h-4 w-4 bottom-[-50px] group-hover/submit:bottom-[0px] relative"
+                      style={{ transition: "0.3s" }}
+                    />
+                  </span>
+                </span>
               </Button>
             </form>
           </div>
