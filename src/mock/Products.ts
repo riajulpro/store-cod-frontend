@@ -14,7 +14,7 @@ export const products: IProduct[] = [
     price: 52.8,
     discountPrice: 48.85,
     brand: "StarKist",
-    rating: 4.5,
+    averageRating: 4.5,
     tag: "new",
   },
   {
@@ -30,7 +30,7 @@ export const products: IProduct[] = [
     price: 35.0,
     discountPrice: 30.0,
     brand: "Kettle",
-    rating: 4.7,
+    averageRating: 4.7,
     tag: "popular",
   },
   {
@@ -46,7 +46,7 @@ export const products: IProduct[] = [
     price: 25.0,
     discountPrice: 20.0,
     brand: "Blue Diamond",
-    rating: 4.2,
+    averageRating: 4.2,
     tag: "",
   },
   {
@@ -62,7 +62,7 @@ export const products: IProduct[] = [
     price: 40.0,
     discountPrice: 35.0,
     brand: "Lay’s",
-    rating: 4.0,
+    averageRating: 4.0,
     tag: "new",
   },
   {
@@ -78,7 +78,7 @@ export const products: IProduct[] = [
     price: 40.0,
     discountPrice: 35.0,
     brand: "Lay’s",
-    rating: 4.0,
+    averageRating: 4.0,
     tag: "new",
   },
   {
@@ -94,7 +94,7 @@ export const products: IProduct[] = [
     price: 40.0,
     discountPrice: 35.0,
     brand: "Lay’s",
-    rating: 4.0,
+    averageRating: 4.0,
     tag: "new",
   },
   {
@@ -110,7 +110,7 @@ export const products: IProduct[] = [
     price: 40.0,
     discountPrice: 35.0,
     brand: "Lay’s",
-    rating: 4.0,
+    averageRating: 4.0,
     tag: "new",
   },
   {
@@ -126,7 +126,7 @@ export const products: IProduct[] = [
     price: 40.0,
     discountPrice: 35.0,
     brand: "Lay’s",
-    rating: 4.0,
+    averageRating: 4.0,
     tag: "new",
   },
 ];

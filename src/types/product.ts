@@ -18,6 +18,6 @@ export interface IProduct {
   brand: string;
   cell?: string;
   service?: Record<string, unknown>;
-  rating?: number;
+  averageRating?: number;
   tag: string | "";
 }

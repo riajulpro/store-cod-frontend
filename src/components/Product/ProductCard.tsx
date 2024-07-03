@@ -42,7 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <div className="flex items-center">
             <span className="text-yellow-500">★</span>
             <span className="ml-1 text-gray-700">
-              {product.rating?.toFixed(1) || "0.0"}
+              {product.averageRating?.toFixed(1) || "0.0"}
             </span>
           </div>{" "}
           <div>
