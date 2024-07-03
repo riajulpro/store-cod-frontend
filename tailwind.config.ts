@@ -22,6 +22,8 @@ const config = {
         // ---->
         primaryTxt: "#253D4E",
         primaryMat: "#3bb77e",
+        borderColor: "#e4e4ec",
+        borderDark: "#9c9cad",
         // ---->
 
         border: "hsl(var(--border))",
