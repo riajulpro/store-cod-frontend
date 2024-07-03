@@ -6,7 +6,7 @@ const PopulerProduct = () => {
   return (
     <section className="w-full mt-[50px]">
       <SectionHeading text="Populer Items" />
-      <div className="flex flex-wrap gap-[15px]">
+      <div className="gridResponsive justify-center gap-[15px]">
         {products.map((product, i) => (
           <ProductCard product={product} key={i + "product"} />
         ))}

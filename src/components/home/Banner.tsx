@@ -2,7 +2,7 @@
 
 import { ArrowLeft, ArrowRight, Send } from "lucide-react";
 import { useEffect, useState } from "react";
-import { bgImageStyle, renderNewLine } from "./utils";
+import { bgImageStyle, renderNewLine } from "./homeUtils";
 const slides = [
   {
     image: "/images/hero1.png",
@@ -36,12 +36,12 @@ const Banner = () => {
   };
 
   return (
-    <section className="w-full flex flex-col items-end">
-      <div className="w-full h-[500px] relative overflow-hidden rounded-[20px] ">
+    <section className="w-full flex flex-col items-end mt-[20px]">
+      <div className="w-full h-[300px] sm:h-[350px] lg:h-[500px] relative overflow-hidden rounded-[20px] ">
         {slides.map(({ desc, head, image }, i) => (
           <div
             key={i + "slide"}
-            className={`w-full h-full absolute top-0 left-0 z-30 bg-green-300 flex flex-col justify-center pl-[50px] ${
+            className={`w-full h-full absolute top-0 left-0 z-30 bg-green-300 flex flex-col justify-center pr-[30px] pl-[30px] lg:pl-[50px] ${
               i === selected ? "opacity-1" : "opacity-0"
             } duration-[0.3s]`}
             style={{
@@ -51,12 +51,12 @@ const Banner = () => {
             }}
           >
             <div className="flex flex-col gap-[25px]" key={i + "slide"}>
-              <h1 className="text-[60px] font-[700] leading-[72px] text-primaryTxt">
+              <h1 className="text-[25px] sm:text-[40px] md:text-[60px] font-[700] md:leading-[72px] text-primaryTxt">
                 {renderNewLine(head)}
               </h1>
-              <p className="text-[25px] font-[500]">{desc}</p>
+              <p className="text-[18px] md:text-[25px] font-[500]">{desc}</p>
 
-              <div className="flex items-center max-w-[460px] h-[56px]  bg-white rounded-full shadow-md overflow-hidden">
+              <div className="hidden sm:flex items-center max-w-[460px] h-[56px]  bg-white rounded-full shadow-md overflow-hidden">
                 <div className="flex items-center px-4">
                   <Send className="w-5 h-5 text-gray-400" />
                 </div>

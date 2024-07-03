@@ -10,3 +10,12 @@
     @apply max-w-[1586px] mx-auto px-[10px] sm:px-[20px] md:px-[80px];
   }
 }
+
+.gridResponsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(285px, 330px));
+}
+
+.slick-dots {
+  display: none !important;
+}

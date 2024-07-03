@@ -10,7 +10,7 @@ import Slider from "react-slick";
 // import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import SectionHeading from "../ui/sectionHeading";
-import { categorySliderSettings } from "./utils";
+import { categorySliderSettings } from "./homeUtils";
 const Categories = () => {
   const nextSlides = () => {
     // slider settings =>{ nextArrow: <span id="next" className="invisible" />}

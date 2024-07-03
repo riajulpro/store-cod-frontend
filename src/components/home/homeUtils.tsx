@@ -55,5 +55,12 @@ export const categorySliderSettings = {
         slidesToScroll: 3,
       },
     },
+    {
+      breakpoint: 360,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      },
+    },
   ],
 };
