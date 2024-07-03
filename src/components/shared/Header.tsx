@@ -1,5 +1,50 @@
+"use client";
+
+import { navLinks } from "@/utils/navLinks";
+import { Heart, Menu, ShoppingCart } from "lucide-react";
+import Link from "next/link";
+import { AccountPanel } from "../client/AccountPanel";
+import { usePathname } from "next/navigation";
+import { LeftSidebar } from "../client/LeftSidebar";
+
 const Header = () => {
-  return <div>Header</div>;
+  const location = usePathname();
+
+  return (
+    <header className="py-5 lg:py-7 px-3 border-b sticky top-0 z-50 bg-white">
+      <div className="max-w-7xl mx-auto flex justify-between gap-4 items-center">
+        <div className="flex items-center gap-2">
+          <LeftSidebar />
+          <span>Tienda</span>
+        </div>
+        <nav className="hidden lg:flex gap-5 items-center">
+          {navLinks.map((nav) => (
+            <Link
+              key={nav.path}
+              href={nav.path}
+              className={`text-slate-700 hover:text-green-500 ${
+                location === nav.path && "font-extrabold text-green-600"
+              }`}
+            >
+              {nav.route}
+            </Link>
+          ))}
+        </nav>
+        <div className="flex gap-3 items-center">
+          <Link
+            href="/wishlist"
+            className="text-slate-700 hover:text-green-500"
+          >
+            <Heart />
+          </Link>
+          <Link href="/cart" className="text-slate-700 hover:text-green-500">
+            <ShoppingCart />
+          </Link>
+          <AccountPanel />
+        </div>
+      </div>
+    </header>
+  );
 };
 
 export default Header;
