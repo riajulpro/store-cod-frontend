@@ -15,7 +15,7 @@ const Header = () => {
       <div className="layout_container  flex justify-between gap-4 items-center">
         <div className="flex items-center gap-2">
           <LeftSidebar />
-          <span>Tienda</span>
+          <span className="text-lg font-bold">Tienda</span>
         </div>
         <nav className="hidden lg:flex gap-5 items-center">
           {navLinks.map((nav) => (
