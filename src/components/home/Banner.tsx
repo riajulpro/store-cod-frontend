@@ -1,6 +1,6 @@
 "use client";
 
-import { Send } from "lucide-react";
+import { ArrowLeft, ArrowRight, Send } from "lucide-react";
 import { useEffect, useState } from "react";
 import { bgImageStyle, renderNewLine } from "./utils";
 const slides = [
@@ -36,7 +36,7 @@ const Banner = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col items-end">
       <div className="w-full h-[500px] relative overflow-hidden rounded-[20px] ">
         {slides.map(({ desc, head, image }, i) => (
           <div
@@ -86,13 +86,19 @@ const Banner = () => {
           ))}
         </div>
         <div className="center gap-[10px]">
-          <button onClick={prevSlide}>prev</button>
+          <button
+            onClick={prevSlide}
+            className="text-stone-400 bg-[#f3f3f3] hover:bg-green-500 hover:text-white duration-75 w-[35px] h-[35px] center rounded-full"
+          >
+            <ArrowLeft />
+          </button>
           <button
             onClick={() =>
               setSelected((prevSelected) => (prevSelected + 1) % slides.length)
             }
+            className="text-stone-400 bg-[#f3f3f3] hover:bg-green-500 hover:text-white duration-75 w-[35px] h-[35px] center rounded-full"
           >
-            Next
+            <ArrowRight />
           </button>
         </div>
       </div>
