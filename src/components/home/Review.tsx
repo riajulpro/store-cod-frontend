@@ -20,7 +20,7 @@ const Review = () => {
   const strokeStar = <StarIcon className="h-6 w-6  stroke-muted-[#f8d228]" />;
 
   return (
-    <section className="bg-background py-12 md:py-16 lg:py-20">
+    <section className="bg-background mt-[50px]">
       <SectionHeading text="What Our Customers Say" />
 
       <Slider {...revieSliderSettings}>
@@ -44,13 +44,13 @@ const Review = () => {
         <div className="center gap-[10px]">
           <button
             onClick={prevSlides}
-            className="text-stone-400 bg-[#f3f3f3] hover:bg-green-500 hover:text-white duration-75 w-[35px] h-[35px] center rounded-full"
+            className="text-stone-400 bg-[#f3f3f3] hover:bg-primaryMat hover:text-white duration-75 w-[35px] h-[35px] center rounded-full"
           >
             <ArrowLeft />
           </button>
           <button
             onClick={nextSlides}
-            className="text-stone-400 bg-[#f3f3f3] hover:bg-green-500 hover:text-white duration-75 w-[35px] h-[35px] center rounded-full"
+            className="text-stone-400 bg-[#f3f3f3] hover:bg-primaryMat hover:text-white duration-75 w-[35px] h-[35px] center rounded-full"
           >
             <ArrowRight />
           </button>

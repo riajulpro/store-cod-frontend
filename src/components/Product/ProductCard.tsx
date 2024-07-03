@@ -1,6 +1,7 @@
 import { IProduct } from "@/types/product";
 import { trimText } from "@/utils/trimText";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import ProductAddToCartBtn from "./ProductAddToCartBtn";
 import ProductTooltip from "./ProductTooltip";
@@ -32,9 +33,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
       <div className="px-4 py-4">
         <div className="text-sm text-gray-500">{product.category.label}</div>
-        <div className="font-bold text-xl mb-2">
+        <Link href={"/"} className="font-bold text-xl mb-2 hover:underline">
           {trimText(product.name, 20)}
-        </div>
+        </Link>
         <div className="text-gray-700 text-base">
           By <span className="text-primaryMat">{product.brand}</span>
         </div>

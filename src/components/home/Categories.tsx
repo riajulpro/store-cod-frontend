@@ -37,13 +37,13 @@ const Categories = () => {
         <div className="center gap-[10px]">
           <button
             onClick={prevSlides}
-            className="text-stone-400 bg-[#f3f3f3] hover:bg-green-500 hover:text-white duration-75 w-[35px] h-[35px] center rounded-full"
+            className="text-stone-400 bg-[#f3f3f3] hover:bg-primaryMat hover:text-white duration-75 w-[35px] h-[35px] center rounded-full"
           >
             <ArrowLeft />
           </button>
           <button
             onClick={nextSlides}
-            className="text-stone-400 bg-[#f3f3f3] hover:bg-green-500 hover:text-white duration-75 w-[35px] h-[35px] center rounded-full"
+            className="text-stone-400 bg-[#f3f3f3] hover:bg-primaryMat hover:text-white duration-75 w-[35px] h-[35px] center rounded-full"
           >
             <ArrowRight />
           </button>

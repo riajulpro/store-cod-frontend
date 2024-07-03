@@ -1,7 +1,8 @@
 "use client";
 
-import { ArrowLeft, ArrowRight, Send } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import SubscribeInput from "../shared/SubscribeInput";
 import { bgImageStyle, renderNewLine } from "./homeUtils";
 const slides = [
   {
@@ -56,19 +57,7 @@ const Banner = () => {
               </h1>
               <p className="text-[18px] md:text-[25px] font-[500]">{desc}</p>
 
-              <div className="hidden sm:flex items-center max-w-[460px] h-[56px]  bg-white rounded-full shadow-md overflow-hidden">
-                <div className="flex items-center px-4">
-                  <Send className="w-5 h-5 text-gray-400" />
-                </div>
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  className="flex-1 h-full py-2 text-gray-700 bg-transparent border-none rounded-l-full focus:outline-none"
-                />
-                <button className="px-9 py-2 text-white bg-green-500 rounded-full hover:bg-green-600 h-full">
-                  Subscribe
-                </button>
-              </div>
+              <SubscribeInput />
             </div>
           </div>
         ))}
@@ -78,8 +67,8 @@ const Banner = () => {
           {slides.map((_, i) => (
             <button
               onClick={() => setSelected(i)}
-              className={`w-[20px] h-[20px] rounded-full border-[1px] ${
-                selected === i ? "bg-green-400" : ""
+              className={`w-[15px] h-[15px] rounded-full border-[1px] ${
+                selected === i ? "bg-primaryMat" : ""
               }`}
               key={i + "slideBtn"}
             />
@@ -88,7 +77,7 @@ const Banner = () => {
         <div className="center gap-[10px]">
           <button
             onClick={prevSlide}
-            className="text-stone-400 bg-[#f3f3f3] hover:bg-green-500 hover:text-white duration-75 w-[35px] h-[35px] center rounded-full"
+            className="text-stone-400 bg-[#f3f3f3] hover:bg-primaryMat hover:text-white duration-75 w-[35px] h-[35px] center rounded-full"
           >
             <ArrowLeft />
           </button>
@@ -96,7 +85,7 @@ const Banner = () => {
             onClick={() =>
               setSelected((prevSelected) => (prevSelected + 1) % slides.length)
             }
-            className="text-stone-400 bg-[#f3f3f3] hover:bg-green-500 hover:text-white duration-75 w-[35px] h-[35px] center rounded-full"
+            className="text-stone-400 bg-[#f3f3f3] hover:bg-primaryMat hover:text-white duration-75 w-[35px] h-[35px] center rounded-full"
           >
             <ArrowRight />
           </button>
