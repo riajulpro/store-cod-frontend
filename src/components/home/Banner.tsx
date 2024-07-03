@@ -36,7 +36,7 @@ const Banner = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-end">
+    <section className="w-full flex flex-col items-end">
       <div className="w-full h-[500px] relative overflow-hidden rounded-[20px] ">
         {slides.map(({ desc, head, image }, i) => (
           <div
@@ -102,7 +102,7 @@ const Banner = () => {
           </button>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
