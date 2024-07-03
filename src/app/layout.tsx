@@ -1,11 +1,14 @@
+import Footer from "@/components/shared/Footer";
+import Header from "@/components/shared/Header";
+import ProviderContainer from "@/provider/ProviderContainer";
 import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
 import "./globals.css";
-import ProviderContainer from "@/provider/ProviderContainer";
-import Header from "@/components/shared/Header";
-import Footer from "@/components/shared/Footer";
 
-const quickSand = Quicksand({ subsets: ["latin"] });
+const quickSand = Quicksand({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Store API",

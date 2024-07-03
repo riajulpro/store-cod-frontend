@@ -1,18 +1,18 @@
 "use client";
 
 import { navLinks } from "@/utils/navLinks";
-import { Heart, Menu, ShoppingCart } from "lucide-react";
+import { Heart, ShoppingCart } from "lucide-react";
 import Link from "next/link";
-import { AccountPanel } from "../client/AccountPanel";
 import { usePathname } from "next/navigation";
+import { AccountPanel } from "../client/AccountPanel";
 import { LeftSidebar } from "../client/LeftSidebar";
 
 const Header = () => {
   const location = usePathname();
 
   return (
-    <header className="py-5 lg:py-7 px-3 border-b sticky top-0 z-50 bg-white">
-      <div className="max-w-7xl mx-auto flex justify-between gap-4 items-center">
+    <header className="py-5 lg:py-7 border-b sticky top-0 z-50 bg-white ">
+      <div className="layout_container  flex justify-between gap-4 items-center">
         <div className="flex items-center gap-2">
           <LeftSidebar />
           <span>Tienda</span>
