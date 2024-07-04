@@ -5,7 +5,7 @@ export const navLinks = [
   },
   {
     path: "/products",
-    route: "Product",
+    route: "Products",
   },
   {
     path: "/blog",

@@ -1,6 +1,6 @@
 import { api } from "@/redux/api/appSlice";
 
-const productAPI: any = api.injectEndpoints({
+const productAPI = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllProducts: builder.query({
       query: ({ page, limit, sort, category, brand, minPrice, maxPrice }) => {
@@ -20,9 +20,19 @@ const productAPI: any = api.injectEndpoints({
       },
       providesTags: ["Product"],
     }),
+    // Create blog post
+    createProduct: builder.mutation({
+      query: (post) => ({
+        url: "/404",
+        method: "POST",
+        body: post,
+      }),
+      invalidatesTags: ["Product"],
+    }),
   }),
 });
 
 export const {
   useGetAllProductsQuery, // get all products (new)
+  useCreateProductMutation,
 } = productAPI;

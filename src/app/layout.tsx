@@ -23,9 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={quickSand.className}>
-        <Header />
-        <ProviderContainer>{children}</ProviderContainer>
-        <Footer />
+        <ProviderContainer>
+          <Header />
+          {children}
+          <Footer />
+        </ProviderContainer>
       </body>
     </html>
   );
