@@ -1,6 +1,6 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
+
 @layer components {
   .center {
     @apply flex justify-center items-center;
@@ -58,3 +58,5 @@
   opacity: 0.25;
   fill: #fff;
 }
+
+@tailwind utilities;
