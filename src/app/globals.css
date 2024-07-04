@@ -1,6 +1,6 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
+
 @layer components {
   .center {
     @apply flex justify-center items-center;
@@ -86,3 +86,4 @@
 .range-slider__thumb:active {
   background-color: #3bb77e;
 }
+@tailwind utilities;
