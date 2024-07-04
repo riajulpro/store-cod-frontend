@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { logout } from "@/redux/features/user/user.slice";
+import Cookies from "js-cookie";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 
@@ -17,6 +18,7 @@ export function AccountPanel() {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout(undefined));
+    Cookies.remove("refreshToken");
   };
 
   return (
