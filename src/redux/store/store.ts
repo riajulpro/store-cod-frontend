@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { api } from "../api/appSlice";
-
+import { persistStore, persistReducer } from 'redux-persist'
 const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
