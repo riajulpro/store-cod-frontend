@@ -1,14 +1,11 @@
 "use client";
 
+import { IReviews } from "@/types/product";
 import { useState } from "react";
 
 interface PropsType {
   description?: string;
-  reviews?: {
-    _id: string;
-    text: string;
-    rating: number;
-  }[];
+  reviews?: IReviews[];
 }
 
 const ProductFooter = ({ description, reviews }: PropsType) => {

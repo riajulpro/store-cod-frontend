@@ -5,6 +5,12 @@ export interface IProductCategory {
   count?: number;
 }
 
+export interface IReviews {
+  _id: string;
+  text: string;
+  rating: number;
+}
+
 // src/types/Product.ts
 export interface IProduct {
   _id?: string;
@@ -16,6 +22,7 @@ export interface IProduct {
   price: number;
   discountPrice: number;
   brand: string;
+  reviews: IReviews[];
   cell?: string;
   service?: Record<string, unknown>;
   averageRating?: number;

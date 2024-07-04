@@ -1,5 +1,6 @@
 import ProductAddToCart from "@/components/client/ProductAddToCart";
 import ProductFooter from "@/components/client/ProductFooter";
+import { IProduct } from "@/types/product";
 import { getSingleProduct } from "@/utils/getData";
 import Image from "next/image";
 
@@ -9,8 +10,14 @@ interface ParamsType {
   };
 }
 
+interface DataType {
+  success: boolean;
+  message: string;
+  data: IProduct;
+}
+
 const ProductDetailsPage = async ({ params: { productId } }: ParamsType) => {
-  const data = await getSingleProduct(productId);
+  const data: DataType = await getSingleProduct(productId);
 
   if (!data) {
     return (
@@ -90,7 +97,7 @@ const ProductDetailsPage = async ({ params: { productId } }: ParamsType) => {
               <span className="text-green-500 font-bold">{stock}</span> items
               In-Stock
             </p>
-            <ProductAddToCart />
+            <ProductAddToCart data={data.data} />
           </div>
         </div>
         <div className="row-start-3 lg:row-start-auto">

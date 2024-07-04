@@ -1,7 +1,8 @@
 "use client";
-import store from "@/redux/store/store";
+import { persistor, store } from "@/redux/store/store";
 import React, { useEffect, useState } from "react";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import { Toaster } from "sonner";
 
 const ReduxProvider = ({ children }: { children: React.ReactNode }) => {
@@ -15,8 +16,10 @@ const ReduxProvider = ({ children }: { children: React.ReactNode }) => {
   }
   return (
     <Provider store={store}>
-      <Toaster position="top-center" richColors={true} />
-      {children}
+      <PersistGate loading={null} persistor={persistor}>
+        <Toaster position="top-center" richColors={true} />
+        {children}
+      </PersistGate>
     </Provider>
   );
 };

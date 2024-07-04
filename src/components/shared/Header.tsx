@@ -6,9 +6,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AccountPanel } from "../client/AccountPanel";
 import { LeftSidebar } from "../client/LeftSidebar";
+import { Badge } from "../ui/badge";
+import { useAppSelector } from "@/redux/hook";
 
 const Header = () => {
   const location = usePathname();
+  const { cart: cartItems } = useAppSelector((state) => state.cart);
 
   return (
     <header className="py-5 lg:py-7 border-b sticky top-0 z-50 bg-white ">
@@ -38,7 +41,15 @@ const Header = () => {
             <Heart />
           </Link>
           <Link href="/cart" className="text-slate-700 hover:text-green-500">
-            <ShoppingCart />
+            <div className="relative">
+              <ShoppingCart />{" "}
+              <Badge
+                variant="outline"
+                className="absolute py-0 px-[2px] z-20 -top-2 -right-2 bg-green-500 text-white"
+              >
+                {cartItems.length}
+              </Badge>
+            </div>
           </Link>
           <AccountPanel />
         </div>
