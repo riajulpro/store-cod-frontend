@@ -8,8 +8,6 @@ import { usePathname } from "next/navigation";
 const ProfileSidebar = () => {
   const path = usePathname();
   const {user} = useAppSelector(state => state.auth)
-
-  console.log("user ======", user);
   
   return (
     <div className="flex flex-col gap-[15px]">

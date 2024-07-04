@@ -1,4 +1,5 @@
 import { api } from "@/redux/api/appSlice";
+import { IProduct } from "@/types/product";
 
 const productAPI = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -20,14 +21,13 @@ const productAPI = api.injectEndpoints({
       },
       providesTags: ["Product"],
     }),
-    // Create blog post
     createProduct: builder.mutation({
-      query: (post) => ({
-        url: "/404",
-        method: "POST",
-        body: post,
+      query: (newProduct) => ({
+        url: 'products',
+        method: 'POST',
+        body: newProduct,
       }),
-      invalidatesTags: ["Product"],
+      invalidatesTags: ['Product'],
     }),
   }),
 });

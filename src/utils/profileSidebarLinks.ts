@@ -44,7 +44,7 @@ export const ownerLinks = [
     Icon: FiShoppingBag,
   },
   {
-    href: "/add-product",
+    href: "/profile/product-create",
     label: "Add Product",
     Icon: BsCartCheck,
   },
