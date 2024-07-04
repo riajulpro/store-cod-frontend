@@ -8,6 +8,7 @@ export const products: IProduct[] = [
       label: "Snack",
       value: "snack",
       image: "/images/category.png",
+      _id: ""
     },
     description: "Delicious sweet and salty popcorn snack",
     stock: 50,
@@ -24,6 +25,7 @@ export const products: IProduct[] = [
       label: "Snack",
       value: "snack",
       image: "/images/category.png",
+      _id: ""
     },
     description: "Crunchy and savory potato chips",
     stock: 30,
@@ -40,6 +42,7 @@ export const products: IProduct[] = [
       label: "Snack",
       value: "snack",
       image: "/images/category.png",
+      _id: ""
     },
     description: "Healthy roasted almonds snack",
     stock: 20,
@@ -56,6 +59,7 @@ export const products: IProduct[] = [
       label: "Snack",
       value: "snack",
       image: "/images/category.png",
+      _id: ""
     },
     description: "Classic and crispy potato chips",
     stock: 100,
@@ -72,6 +76,7 @@ export const products: IProduct[] = [
       label: "Snack",
       value: "snack",
       image: "/images/category.png",
+      _id: ""
     },
     description: "Classic and crispy potato chips",
     stock: 100,
@@ -88,6 +93,7 @@ export const products: IProduct[] = [
       label: "Snack",
       value: "snack",
       image: "/images/category.png",
+      _id: ""
     },
     description: "Classic and crispy potato chips",
     stock: 100,
@@ -104,6 +110,7 @@ export const products: IProduct[] = [
       label: "Snack",
       value: "snack",
       image: "/images/category.png",
+      _id: ""
     },
     description: "Classic and crispy potato chips",
     stock: 100,
@@ -120,6 +127,7 @@ export const products: IProduct[] = [
       label: "Snack",
       value: "snack",
       image: "/images/category.png",
+      _id: ""
     },
     description: "Classic and crispy potato chips",
     stock: 100,

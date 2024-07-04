@@ -1,17 +1,22 @@
-'use client';
-import React, { useState } from 'react';
-import ProductCard from '@/components/Product/ProductCard';
-import { PaginationResult, paginate } from '@/utils/Pagination';
-import { products } from '@/mock/Products';
-import { IProduct } from '@/types/product';
-import { productCategories } from '@/mock/productCategory';
-import Image from 'next/image';
+"use client";
+import React, { useState } from "react";
+import ProductCard from "@/components/Product/ProductCard";
+import { PaginationResult, paginate } from "@/utils/Pagination";
+import { products } from "@/mock/Products";
+import { IProduct } from "@/types/product";
+import { productCategories } from "@/mock/productCategory";
+import Image from "next/image";
+import PriceRangeSlider from "@/components/Product/PriceRangeSlider";
+import { IBrand } from "@/types/brand";
+import { brandsData } from "@/mock/brandData";
 
 const ProductsView: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [sortOption, setSortOption] = useState<string>('');
+  const [sortOption, setSortOption] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [visibleCategories, setVisibleCategories] = useState<number>(5);
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+  const [visibleBrands, setVisibleBrands] = useState<number>(5);
   const productsPerPage = 8;
 
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -31,15 +36,28 @@ const ProductsView: React.FC = () => {
     setCurrentPage(1);
   };
 
+  const handleBrandChange = (brandValue: string) => {
+    setSelectedBrand(brandValue);
+    setCurrentPage(1);
+  };
+
+  const handleShowMoreBrands = () => {
+    setVisibleBrands((prevCount) => prevCount + 5);
+  };
+
+  const handleShowLessBrands = () => {
+    setVisibleBrands(5);
+  };
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
-
-  // Filter products by selected category
-  const filteredProducts = selectedCategory
-    ? products.filter((product) => product.category.value === selectedCategory)
-    : products;
+  const filteredProducts = products.filter((product) => {
+    const categoryMatch = selectedCategory ? product.category.value === selectedCategory : true;
+    const brandMatch = selectedBrand ? product.brand === selectedBrand : true;
+    return categoryMatch && brandMatch;
+  });
 
   const paginationResult: PaginationResult<IProduct> = paginate(
     filteredProducts,
@@ -48,11 +66,11 @@ const ProductsView: React.FC = () => {
   );
 
   return (
-    <div className="flex flex-col md:flex-row p-5">
+    <div className="flex flex-col-reverse md:flex-row py-5 px-[80px]">
       <div className="mb-5 md:mb-0 md:mr-5 w-full md:w-1/4">
         <h2 className="text-xl font-bold mb-3">Filter Options</h2>
         <div className="space-y-3">
-          <div className="p-3 rounded">
+          <div className="p-3 rounded shadow-md">
             <h3 className="font-semibold mb-2">Categories</h3>
             <ul>
               {productCategories.slice(0, visibleCategories).map((category) => (
@@ -61,8 +79,8 @@ const ProductsView: React.FC = () => {
                     onClick={() => handleCategoryChange(category.value)}
                     className={`w-full text-left p-2 rounded flex items-center hover:shadow-lg ${
                       selectedCategory === category.value
-                        ? 'bg-primaryMat text-white'
-                        : 'text-black'
+                        ? "bg-primaryMat text-white"
+                        : "text-black"
                     }`}
                   >
                     <Image
@@ -84,22 +102,68 @@ const ProductsView: React.FC = () => {
             </ul>
             {visibleCategories < productCategories.length ? (
               <button
-                onClick={() => setVisibleCategories((prevCount) => prevCount + 5)}
+                onClick={() =>
+                  setVisibleCategories((prevCount) => prevCount + 5)
+                }
                 className="w-full text-left p-2 rounded flex items-center justify-center bg-gray-200 text-black mt-3"
               >
                 Show More
               </button>
-            ) : 
-            <button
+            ) : (
+              <button
                 onClick={() => setVisibleCategories(5)}
                 className="w-full text-left p-2 rounded flex items-center justify-center bg-gray-200 text-black mt-3"
               >
                 Show Less
               </button>
-            }
+            )}
           </div>
-          <div className="bg-gray-100 p-3 rounded">Filter 2</div>
-          <div className="bg-gray-100 p-3 rounded">Filter 3</div>
+          <div className="p-3 rounded shadow-md">
+            <PriceRangeSlider />
+          </div>
+          <div className="bg-gray-100 p-3 rounded">
+            <h3 className="font-semibold mb-2">Brands</h3>
+            <ul>
+              {brandsData.slice(0, visibleBrands).map((brand:IBrand) => (
+                <li key={brand._id}>
+                  <button
+                    onClick={() => handleBrandChange(brand.value)}
+                    className={`w-full text-left p-2 rounded flex items-center hover:shadow-lg ${
+                      selectedBrand === brand.value
+                        ? "bg-primaryMat text-white"
+                        : "text-black"
+                    }`}
+                  >
+                    <Image
+                      src={brand.image}
+                      height={55}
+                      width={55}
+                      alt="img"
+                      className=""
+                    />
+                    <div className="flex items-center justify-between w-full ">
+                      <p className="font-medium">{brand.label}</p>
+                    </div>
+                  </button>
+                </li>
+              ))}
+            </ul>
+            {visibleBrands < brandsData.length ? (
+              <button
+                onClick={handleShowMoreBrands}
+                className="w-full p-2 rounded bg-gray-200 text-black mt-3 text-center"
+              >
+                Show More
+              </button>
+            ) : (
+              <button
+                onClick={handleShowLessBrands}
+                className="w-full p-2 rounded bg-gray-200 text-black mt-3 text-center"
+              >
+                Show Less
+              </button>
+            )}
+          </div>
         </div>
       </div>
       <div className="w-full md:w-3/4">
@@ -129,7 +193,7 @@ const ProductsView: React.FC = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {paginationResult.paginatedItems.map((product, i) => (
-            <ProductCard product={product} key={i + 'product'} />
+            <ProductCard product={product} key={i + "product"} />
           ))}
         </div>
         <div className="flex justify-start gap-[20px] mt-20 mb-10">
@@ -147,8 +211,8 @@ const ProductsView: React.FC = () => {
                 onClick={() => handlePageChange(i + 1)}
                 className={`px-4 py-2 rounded ${
                   currentPage === i + 1
-                    ? 'bg-primaryMat text-white'
-                    : 'bg-borderColor text-black'
+                    ? "bg-primaryMat text-white"
+                    : "bg-borderColor text-black"
                 }`}
               >
                 {i + 1}
