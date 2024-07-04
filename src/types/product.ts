@@ -1,4 +1,5 @@
 export interface IProductCategory {
+  _id: string;
   label: string;
   value: string;
   image: string;

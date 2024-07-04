@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL,
+    baseUrl: process.env.NEXT_PUBLIC_AUTH_API,
     prepareHeaders: (headers) => {
       const token = Cookies.get("accessToken");
       if (token) {
@@ -14,6 +14,6 @@ export const api = createApi({
     },
     // credentials: 'include',
   }),
-  tagTypes: ["user", "blog", "application", "category", "tag"],
+  tagTypes: ["user", "Product", "Category", "tag", "Sell"],
   endpoints: () => ({}),
 });

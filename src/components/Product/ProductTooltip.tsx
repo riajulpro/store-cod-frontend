@@ -1,5 +1,6 @@
 import { IProduct } from "@/types/product";
 import { Eye, ReceiptText, ShoppingCart } from "lucide-react";
+import Link from "next/link";
 
 const ProductTooltip = ({ product }: { product: IProduct }) => {
   return (
@@ -14,9 +15,9 @@ const ProductTooltip = ({ product }: { product: IProduct }) => {
         <button className="p-[5px] border-r-[1px] border-borderColor hover:bg-[#f0f0f0]">
           <ReceiptText />
         </button>
-        <button className="p-[5px] border-r-[1px] border-borderColor hover:bg-[#f0f0f0]">
+        <Link href={`/product/details/${product._id}`} className="p-[5px] border-r-[1px] border-borderColor hover:bg-[#f0f0f0]">
           <Eye />
-        </button>
+        </Link>
       </div>
     </div>
   );

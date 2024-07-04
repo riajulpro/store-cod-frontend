@@ -9,9 +9,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { logout } from "@/redux/features/user/user.slice";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
 
 export function AccountPanel() {
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout(undefined));
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -21,21 +28,24 @@ export function AccountPanel() {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <User className="mr-2 h-4 w-4" />
-            <Link href="/profile">
+          <Link href={"/profile"}>
+            <DropdownMenuItem className="cursor-pointer">
+              <User className="mr-2 h-4 w-4" />
               <span>Profile</span>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
-            <Link href="/settings">
+            </DropdownMenuItem>
+          </Link>
+
+          <Link href="/settings">
+            {" "}
+            <DropdownMenuItem>
+              <Settings className="mr-2 h-4 w-4" />
+
               <span>Settings</span>
-            </Link>
-          </DropdownMenuItem>
+            </DropdownMenuItem>{" "}
+          </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
         </DropdownMenuItem>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useAppSelector } from "@/redux/hook";
 import { navLinks } from "@/utils/navLinks";
 import { Heart, ShoppingCart } from "lucide-react";
 import Link from "next/link";
@@ -12,6 +13,8 @@ import { useAppSelector } from "@/redux/hook";
 const Header = () => {
   const location = usePathname();
   const { cart: cartItems } = useAppSelector((state) => state.cart);
+
+  const { user, token } = useAppSelector((state) => state.auth);
 
   return (
     <header className="py-5 lg:py-7 border-b sticky top-0 z-50 bg-white ">
@@ -51,7 +54,13 @@ const Header = () => {
               </Badge>
             </div>
           </Link>
-          <AccountPanel />
+          {token ? (
+            <AccountPanel />
+          ) : (
+            <Link href="/login" className="text-slate-700 hover:text-green-500">
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </header>

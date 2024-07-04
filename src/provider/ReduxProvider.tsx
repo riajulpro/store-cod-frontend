@@ -1,6 +1,6 @@
 "use client";
 import { persistor, store } from "@/redux/store/store";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { Toaster } from "sonner";
