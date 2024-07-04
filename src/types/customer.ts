@@ -5,5 +5,7 @@ export type TCustomer = {
   lastName: string;
   contactNumber: string;
   address: string;
+  role: string;
+  createdAt:string
   [key: string]: any;
 };
