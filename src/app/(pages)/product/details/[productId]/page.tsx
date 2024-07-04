@@ -58,7 +58,7 @@ const ProductDetailsPage = async ({ params: { productId } }: ParamsType) => {
           </div>
         </div>
         <div className="lg:col-span-2">
-          <div className="flex flex-col gap-5 p-5">
+          <div className="flex flex-col gap-5 md:p-5">
             <h4
               className="w-fit px-3 py-1 text-sm bg-green-500
              rounded-lg text-white font-medium"
@@ -71,20 +71,24 @@ const ProductDetailsPage = async ({ params: { productId } }: ParamsType) => {
               of 5
             </p>
             <div className="flex gap-2 items-center">
-              <span className="text-6xl font-extrabold text-green-500">
+              <span className="text-4xl md:text-6xl font-extrabold text-green-500">
                 ${discountPrice}
               </span>
               <span className="flex flex-col gap-[0.5]">
                 <span className="text-xs">
                   {(((price - discountPrice) / price) * 100).toFixed(0)}% OFF
                 </span>
-                <s className="text-3xl font-semibold">${price}</s>
+                <s className="text-2xl md:text-3xl font-semibold">${price}</s>
               </span>
             </div>
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
               Similique, sit. Magni, beatae sint. Ipsum quam omnis nesciunt
               ullam? Minima, voluptatibus?
+            </p>
+            <p className="text-lg font-medium">
+              <span className="text-green-500 font-bold">{stock}</span> items
+              In-Stock
             </p>
             <ProductAddToCart />
           </div>
