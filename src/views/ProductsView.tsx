@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import ProductCard from "@/components/Product/ProductCard";
-// import { productCategories } from "@/mock/productCategory";
 import Image from "next/image";
 import PriceRangeSlider from "@/components/Product/PriceRangeSlider";
 import { IBrand } from "@/types/brand";

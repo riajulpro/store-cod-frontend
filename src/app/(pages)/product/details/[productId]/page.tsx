@@ -10,7 +10,10 @@ interface ParamsType {
 }
 
 const ProductDetailsPage = async ({ params: { productId } }: ParamsType) => {
+  console.log("ddd", productId)
   const data = await getSingleProduct(productId);
+  console.log("aaaaaaaa", data);
+  
 
   if (!data) {
     return (
