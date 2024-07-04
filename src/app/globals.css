@@ -58,3 +58,31 @@
   opacity: 0.25;
   fill: #fff;
 }
+
+
+/* .range-slider__thumb {
+  background-color: #3bb77e;
+  border: 1px solid #ccc;
+} */
+
+/* RangeSlider.css */
+.range-slider__track {
+  background: linear-gradient(to right, #ccc, #3bb77e, #ccc);
+}
+
+.range-slider__thumb {
+  background-color: #3bb77e!important;
+  border: 1px solid #ccc;
+}
+.range-slider__range {
+  background-color: #3bb77e!important;
+  border: 1px solid #ccc;
+}
+
+.range-slider__thumb:hover {
+  background-color: #3bb77e;
+}
+
+.range-slider__thumb:active {
+  background-color: #3bb77e;
+}
