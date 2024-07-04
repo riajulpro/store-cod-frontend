@@ -1,5 +1,5 @@
 "use client";
-import { useRegisterUserMutation } from "@/redux/features/user/user.api";
+import { useRegisterCustomerMutation } from "@/redux/features/user/user.api";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -26,7 +26,7 @@ const validationSchema = Yup.object({
     .required("* Confirm password is required"),
 });
 const CreateAccount = () => {
-  const [register] = useRegisterUserMutation();
+  const [register] = useRegisterCustomerMutation();
 
   const router = useRouter();
 

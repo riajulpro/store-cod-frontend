@@ -1,3 +1,4 @@
+
 import ReduxProvider from "./ReduxProvider";
 import { ThemeProvider } from "./theme-provider";
 
@@ -9,7 +10,10 @@ const ProviderContainer = ({ children }: { children: React.ReactNode }) => {
       enableSystem
       disableTransitionOnChange
     >
-      <ReduxProvider>{children}</ReduxProvider>
+      {" "}
+      <ReduxProvider>
+          {children}
+      </ReduxProvider>
     </ThemeProvider>
   );
 };
