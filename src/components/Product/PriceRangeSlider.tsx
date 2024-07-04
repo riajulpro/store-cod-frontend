@@ -1,14 +1,20 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 
-const PriceRangeSlider: React.FC = () => {
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
-  const minPrice = 0;
-  const maxPrice = 10000;
+interface PriceRangeSliderProps {
+  minPrice: number;
+  maxPrice: number;
+  priceRange: [number, number];
+  setPriceRange: (values: [number, number]) => void;
+}
+
+const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({ minPrice, maxPrice, priceRange, setPriceRange }) => {
 
   const handlePriceChange = (values: [number, number]) => {
+    console.log("pricerange", values);
+    
     setPriceRange(values);
   };
 
