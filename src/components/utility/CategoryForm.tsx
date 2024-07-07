@@ -29,19 +29,16 @@ const CategoryForm: React.FC<{
 
   const [userPic, setUserPic] = useState<string | undefined>();
 
-
-
   const handleSubmit = async (
     values: any,
     { resetForm }: { resetForm: () => void }
   ) => {
     try {
       if (modalType === "create") {
-        console.log({ ...values, image: userPic });
-        
-        // await createCategory({ ...values, image: userPic });
+        await createCategory({ ...values, image: userPic });
       } else {
-        await updateCategory({ id: initialValues.id, ...values });
+        console.log("update val", values);
+        await updateCategory(values);
       }
       resetForm();
       onClose();
@@ -118,7 +115,9 @@ const CategoryForm: React.FC<{
             <div className="relative group overflow-hidden rounded-md">
               {userPic ? (
                 <Image
-                  src={userPic || "/images/profileicon.png"}
+                  src={
+                    userPic || initialValues.image || "/images/profileicon.png"
+                  }
                   alt="profile pic"
                   height={400}
                   width={400}

@@ -3,7 +3,7 @@ import React from "react";
 
 const Modal: React.FC<{ onClose: () => void, children: React.ReactNode }> = ({ onClose, children }) => {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+    <div className="fixed top-0 inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white p-4 rounded">
         <button
           onClick={onClose}

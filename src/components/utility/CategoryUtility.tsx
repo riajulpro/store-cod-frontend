@@ -8,8 +8,9 @@ import {
 import CategoryForm from "./CategoryForm";
 import Modal from "../shared/ModalCompo";
 import Image from "next/image";
+import { BsPlus } from "react-icons/bs";
 
-type ICategory = { _id: string; label: string; value: string };
+export type ICategory = { _id: string; label: string; value: string, image:string };
 
 const CategoryList: React.FC = () => {
   const {
@@ -18,17 +19,17 @@ const CategoryList: React.FC = () => {
     isError,
   } = useGetAllCategoriesQuery(undefined);
   const [deleteCategory] = useDeleteCategoryMutation();
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState<ICategory | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState("create");
 
-  const handleEdit = (category: any) => {
+  const handleEdit = (category:ICategory) => {
     setSelectedCategory(category);
     setModalType("edit");
     setIsModalOpen(true);
   };
 
-  const handleDelete = async (id:string) => {
+  const handleDelete = async (id: string) => {
     try {
       await deleteCategory(id);
     } catch (error) {
@@ -49,9 +50,9 @@ const CategoryList: React.FC = () => {
     <div>
       <button
         onClick={handleCreate}
-        className="mb-4 bg-blue-500 text-white px-4 py-2 rounded"
+        className="mb-4 flex justify-center items-center border-2 px-4 py-2 rounded w-full md:w-[600px]"
       >
-        Add Category
+        <BsPlus size={24} /> Add
       </button>
 
       <ul>
@@ -60,17 +61,18 @@ const CategoryList: React.FC = () => {
             key={category._id}
             className="mb-2 p-2 border rounded flex justify-between items-center"
           >
-            <div>
+            <div className="flex gap-[20px]">
               <p>
-                <strong>Label:</strong> {category.label}
+                <Image src={category.image} alt={category.label} width={50} height={50} />
               </p>
-              <p>
-                <strong>Value:</strong> {category.value}
-              </p>
-              <p>
-                <strong>Image:</strong>{" "}
-                {/* <Image src={category.image} alt={category.label} width={50} height={50} /> */}
-              </p>
+              <div className="">
+                <p>
+                  <strong>Label:</strong> {category.label}
+                </p>
+                <p>
+                  <strong>Value:</strong> {category.value}
+                </p>
+              </div>
             </div>
             <div>
               <button
