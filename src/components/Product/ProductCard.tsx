@@ -32,8 +32,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <ProductTooltip product={product} />
       </div>
       <div className="px-4 py-4">
-        <div className="text-sm text-gray-500">{product.category.label}</div>
-        <Link href={`/product/details/${product._id}`} className="font-bold text-xl mb-2 hover:underline">
+        <div className="text-sm text-gray-500">{product.category?.label}</div>
+        <Link
+          href={`/product/details/${product._id}`}
+          className="font-bold text-xl mb-2 hover:underline"
+        >
           {trimText(product.name, 20)}
         </Link>
         <div className="text-gray-700 text-base">
