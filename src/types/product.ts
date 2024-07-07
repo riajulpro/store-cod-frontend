@@ -17,7 +17,7 @@ export interface IProduct {
   _id?: string;
   name: string;
   photo: string;
-  category: IProductCategory;
+  category: string;
   description: string;
   stock: number;
   price: number;

@@ -1,8 +1,8 @@
 import { BsCartCheck } from "react-icons/bs";
 import { CiUser } from "react-icons/ci";
 import { FiShoppingBag } from "react-icons/fi";
+import { MdOutlineManageHistory } from "react-icons/md";
 import { RiUserSettingsLine } from "react-icons/ri";
-import { MdOutlineManageHistory } from "react-icons/md"
 
 export const customerLinks = [
   {
@@ -16,7 +16,7 @@ export const customerLinks = [
     Icon: RiUserSettingsLine,
   },
   {
-    href: "/orders",
+    href: "/my-orders",
     label: "My orders",
     Icon: FiShoppingBag,
   },

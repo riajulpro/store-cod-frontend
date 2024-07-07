@@ -5,9 +5,10 @@ import Image from "next/image";
 import PriceRangeSlider from "@/components/Product/PriceRangeSlider";
 import { IBrand } from "@/types/brand";
 import { IProduct } from "@/types/product";
-import { brandsData } from "@/mock/brandData";
+// import { brandsData } from "@/mock/brandData";
 import { useGetAllProductsQuery } from "@/redux/features/product/product.api";
 import { useGetAllCategoriesQuery } from "@/redux/features/category/category.api";
+import { useGetAllBrandsQuery } from "@/redux/features/brand/brand.api";
 
 const ProductsView: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -22,6 +23,7 @@ const ProductsView: React.FC = () => {
   const [priceRange, setPriceRange] = useState<[number, number]>([minPrice, maxPrice]);
 
   const {data:productCategories} = useGetAllCategoriesQuery(undefined)
+  const {data:productBrands} = useGetAllBrandsQuery(undefined)
   const { data, isSuccess, isLoading, error } = useGetAllProductsQuery({
     page: currentPage,
     limit: productsPerPage,
@@ -152,12 +154,12 @@ const ProductsView: React.FC = () => {
           <div className="p-3 rounded shadow-md">
             <h3 className="font-semibold mb-2">Brands</h3>
             <ul>
-              {brandsData.slice(0, visibleBrands).map((brand: IBrand) => (
+              {productBrands?.data.slice(0, visibleBrands).map((brand: IBrand) => (
                 <li key={brand._id}>
                   <button
-                    onClick={() => handleBrandChange(brand.value)}
+                    onClick={() => handleBrandChange(brand._id)}
                     className={`w-full text-left p-2 rounded flex items-center hover:shadow-lg ${
-                      selectedBrand === brand.value
+                      selectedBrand === brand._id
                         ? "bg-primaryMat text-white"
                         : "text-black"
                     }`}
@@ -176,7 +178,7 @@ const ProductsView: React.FC = () => {
                 </li>
               ))}
             </ul>
-            {visibleBrands < brandsData.length ? (
+            {visibleBrands < productBrands?.data.length ? (
               <button
                 onClick={handleShowMoreBrands}
                 className={` w-full text-left p-2 rounded flex items-center justify-center bg-gray-200 text-black mt-3 ${visibleBrands < 6 && "hidden"} `}
@@ -220,7 +222,7 @@ const ProductsView: React.FC = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 min-h-[50vh]">
-          {filteredProducts.map((product: IProduct, i: number) => (
+          {filteredProducts.map((product: any, i: number) => (
             <ProductCard product={product} key={i + "product"} />
           ))}
         </div>
