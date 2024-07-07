@@ -1,8 +1,8 @@
 "use client";
 
+import { logout } from "@/redux/features/auth/auth.slice";
 import { useAppSelector } from "@/redux/hook";
 import { customerLinks, ownerLinks } from "@/utils/profileSidebarLinks";
-import { logout } from "@/redux/features/user/user.slice";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

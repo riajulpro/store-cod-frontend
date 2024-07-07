@@ -1,4 +1,6 @@
 "use client";
+import { setUser } from "@/redux/features/auth/auth.slice";
+import { useUpdateCustomerDetailsMutation } from "@/redux/features/Customer/customer.api";
 import { useAppSelector } from "@/redux/hook";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
@@ -7,6 +9,7 @@ import PhoneInput, {
   isValidPhoneNumber,
 } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import * as Yup from "yup";
 
@@ -24,25 +27,32 @@ const validationSchema = Yup.object({
 // Define the submit handler
 
 const ProfileUpdate = () => {
-  const { user } = useAppSelector((state) => state.auth);
+  const { user, token } = useAppSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
+  // mutation
+  const [updateDetails] = useUpdateCustomerDetailsMutation();
+
   const {
     firstName,
     address,
     lastName,
     contactNumber: userContact,
   } = user || {};
-  const [contactNumber, setContactNumber] = useState(userContact || "");
-  const [contactErr, setContactErr] = useState("");
+
   const initialValues = {
     firstName,
     lastName,
     address,
   };
-  const onSubmit = (values: FormValues) => {
+  const [contactNumber, setContactNumber] = useState(userContact || "");
+  const [contactErr, setContactErr] = useState("");
+
+  const onSubmit = async (values: FormValues) => {
     if (!contactNumber && userContact) {
       return setContactErr("You can't empty this feild ");
     }
-
 
     if (
       contactNumber &&
@@ -51,9 +61,34 @@ const ProfileUpdate = () => {
     ) {
       return setContactErr("Invalid Contact number");
     }
-
     setContactErr("");
-    toast.success("yee");
+
+    const toastId = toast.loading("Please wait");
+    const updatePayload: Record<string, unknown> = { ...values };
+    if (contactNumber) {
+      updatePayload["contactNumber"] = contactNumber;
+    }
+    try {
+      const result = await updateDetails({ ...values, contactNumber });
+      const res = result.data;
+      if (!res) {
+        return toast.error("Something went wrong");
+      }
+      if (!res.success) {
+        return toast.error("Something went wrong", {
+          description: "Please try again ",
+        });
+      }
+
+      dispatch(setUser({ token, user: { ...res.data, role: user?.role } }));
+      toast.success("Update successfull");
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Something went wrong while updating your details");
+    } finally {
+      toast.dismiss(toastId);
+    }
   };
   return (
     <div className="w-full">
