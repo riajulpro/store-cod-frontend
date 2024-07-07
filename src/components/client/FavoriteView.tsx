@@ -18,7 +18,7 @@ const FavoriteView = () => {
       id: item._id!,
       photo: item.photo,
       name: item.name,
-      rating: item.averageRating,
+      rating: item.rating,
       price: item.price * parseInt(quantity || item.quantity),
       quantity: quantity || item.quantity,
     };
