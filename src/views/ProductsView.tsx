@@ -9,6 +9,7 @@ import { IProduct } from "@/types/product";
 import { useGetAllProductsQuery } from "@/redux/features/product/product.api";
 import { useGetAllCategoriesQuery } from "@/redux/features/category/category.api";
 import { useGetAllBrandsQuery } from "@/redux/features/brand/brand.api";
+import { Loader } from "lucide-react";
 
 const ProductsView: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -79,9 +80,9 @@ const ProductsView: React.FC = () => {
   const filteredProducts = data?.data || [];
   const totalPages = data?.total ? Math.ceil(data?.total / productsPerPage) : 0;
 
-  if (isLoading) {
-    return <h1 className="">Loading...</h1>;
-  }
+  if (isLoading) return <div className="w-full center h-[400px]">
+  <Loader />
+</div>;
 
   if (error) {
     return <h1 className="">An error occurred</h1>;
@@ -117,9 +118,9 @@ const ProductsView: React.FC = () => {
                     />
                     <div className="flex items-center justify-between w-full ">
                       <p className="font-medium">{category.label}</p>
-                      <p className="font-medium bg-primaryMat px-[10px] py-[5px] text-[12px] rounded-2xl text-white">
-                        {/* {category.count} */}40
-                      </p>
+                      {/* <p className="font-medium bg-primaryMat px-[10px] py-[5px] text-[12px] rounded-2xl text-white">
+                        {category.count}40
+                      </p> */}
                     </div>
                   </button>
                 </li>

@@ -9,6 +9,7 @@ import CategoryForm from "./CategoryForm";
 import Modal from "../shared/ModalCompo";
 import Image from "next/image";
 import { BsPlus } from "react-icons/bs";
+import { Loader } from "lucide-react";
 
 export type ICategory = { _id: string; label: string; value: string, image:string };
 
@@ -43,7 +44,9 @@ const CategoryList: React.FC = () => {
     setIsModalOpen(true);
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <div className="w-full center">
+    <Loader />
+  </div>;
   if (isError) return <p>Error loading categories.</p>;
 
   return (

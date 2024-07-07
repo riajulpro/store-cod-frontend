@@ -5,6 +5,7 @@ import Modal from "../shared/ModalCompo";
 import BrandForm from "./BrandForm";
 import Image from "next/image";
 import { BsPlus } from "react-icons/bs";
+import { Loader } from "lucide-react";
 
 export type IBrand = { _id: string; label: string; value: string, image:string };
 
@@ -36,7 +37,9 @@ const BrandList: React.FC = () => {
     setIsModalOpen(true);
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <div className="w-full center">
+    <Loader />
+  </div>;
   if (isError) return <p>Error loading brands.</p>;
 
   return (
