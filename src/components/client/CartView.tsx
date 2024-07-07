@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const CartView = () => {
-  const [quantity, setQantity] = useState<string>("");
+  const [quantity, setQuantity] = useState<string>("");
   const [subtotal, setSubtotal] = useState<number>(0);
   const { cart: cartItems } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
@@ -23,6 +23,11 @@ const CartView = () => {
 
     setSubtotal(totalSum);
   }, [cartItems]);
+
+  const handleDelete = (id: string) => {
+    console.log("Deleting item with id:", id); // Add this line
+    dispatch(deleteCart({ id }));
+  };
 
   return (
     <div className="layout_container py-5 lg:py-10 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-5">
@@ -63,7 +68,7 @@ const CartView = () => {
                   defaultValue={item.quantity}
                   className="border w-16 p-2"
                   onChange={(e) => {
-                    setQantity(e.target.value);
+                    setQuantity(e.target.value);
                     if (e.target.value > quantity) {
                       const newSubtotal = subtotal + item.price;
                       setSubtotal(newSubtotal);
@@ -78,7 +83,7 @@ const CartView = () => {
                 ${item.price * parseInt(quantity || item.quantity)}
               </div>
               <div className="w-[70px] self-center">
-                <button onClick={() => dispatch(deleteCart({ id: item.id }))}>
+                <button onClick={() => handleDelete(item.id!)}>
                   <Trash className="hover:text-green-500" />
                 </button>
               </div>

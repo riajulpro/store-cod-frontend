@@ -7,9 +7,11 @@ import { toast } from "sonner";
 const ProductAddToCartBtn = ({ product }: { product: IProduct }) => {
   const dispatch = useAppDispatch();
 
+  console.log("Product ID: ", product._id);
+
   const handleAddToCart = () => {
     const body = {
-      id: product._id,
+      id: product._id!,
       photo: product.photo,
       name: product.name,
       rating: product.averageRating,

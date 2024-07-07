@@ -1,6 +1,7 @@
 "use client";
 
 import { addCart } from "@/redux/features/cart/cart.slice";
+import { addWishlist } from "@/redux/features/wishlist/wishlist.slice";
 import { useAppDispatch } from "@/redux/hook";
 import { IProduct } from "@/types/product";
 import { Heart } from "lucide-react";
@@ -16,7 +17,7 @@ const ProductAddToCart = ({ data }: { data: IProduct }) => {
 
   const addToCart = () => {
     const body = {
-      id: data._id,
+      id: data._id!,
       photo: data.photo,
       name: data.name,
       rating: data.averageRating,
@@ -27,6 +28,22 @@ const ProductAddToCart = ({ data }: { data: IProduct }) => {
     dispatch(addCart(body));
 
     toast.success("Cart added successfully!");
+    console.log("You are about to add these", body);
+  };
+
+  const handleWishlist = () => {
+    const body = {
+      id: data._id!,
+      photo: data.photo,
+      name: data.name,
+      rating: data.averageRating,
+      price: data.discountPrice,
+      quantity: quantity,
+    };
+
+    dispatch(addWishlist(body));
+
+    toast.success("Wishlist added successfully!");
     console.log("You are about to add these", body);
   };
 
@@ -65,7 +82,10 @@ const ProductAddToCart = ({ data }: { data: IProduct }) => {
         >
           Add to cart
         </button>
-        <button className="p-3 rounded-md border bg-white group hover:text-white hover:bg-green-500">
+        <button
+          className="p-3 rounded-md border bg-white group hover:text-white hover:bg-green-500"
+          onClick={handleWishlist}
+        >
           <Heart className="text-green-500 group-hover:text-white" />
         </button>
       </div>

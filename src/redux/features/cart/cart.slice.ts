@@ -1,5 +1,5 @@
 interface CartItem {
-  id?: string;
+  id: string; // Make id required
   photo: string;
   name: string;
   rating?: number;
@@ -12,12 +12,12 @@ interface CartState {
 }
 
 interface UpdateObjectPayload {
-  id?: string;
+  id: string;
   newObj: CartItem;
 }
 
 interface DeleteObjectPayload {
-  id?: string;
+  id: string;
 }
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -31,7 +31,16 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addCart: (state, action: PayloadAction<CartItem>) => {
-      state.cart.push(action.payload);
+      const newItem = action.payload;
+      const existingItem = state.cart.find((item) => item.id === newItem.id);
+
+      if (existingItem) {
+        existingItem.quantity = String(
+          Number(existingItem.quantity) + Number(newItem.quantity)
+        );
+      } else {
+        state.cart.push(newItem);
+      }
     },
     updateCart: (state, action: PayloadAction<UpdateObjectPayload>) => {
       const { id, newObj } = action.payload;
@@ -44,7 +53,7 @@ const cartSlice = createSlice({
       }
     },
     deleteCart: (state, action: PayloadAction<DeleteObjectPayload>) => {
-      const id = action.payload.id;
+      const { id } = action.payload;
       state.cart = state.cart.filter((obj) => obj.id !== id);
     },
   },
