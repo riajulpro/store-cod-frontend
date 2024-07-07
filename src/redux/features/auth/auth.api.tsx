@@ -21,13 +21,15 @@ const userApi = api.injectEndpoints({
       invalidatesTags: ["user"],
     }),
     getAuthor: builder.query<{ data: TCustomer }, string>({
-      query: (token) => ({
-        url: `/auth/auth-state`,
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }),
+      query: (token) => {
+        return {
+          url: `/auth/auth-state`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
       providesTags: ["user"],
     }),
   }),

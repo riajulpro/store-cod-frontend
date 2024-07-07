@@ -11,7 +11,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   if (isLoading) {
-    return <Loading />;
+    return (
+      <div className="w-full h-screen center">
+        <Loading />
+      </div>
+    );
   }
 
   return <>{children}</>;
