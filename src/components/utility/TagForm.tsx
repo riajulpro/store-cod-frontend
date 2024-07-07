@@ -30,9 +30,9 @@ const TagForm: React.FC<{
   ) => {
     try {
       if (modalType === "create") {
-        await createTag(values);
+        await createTag({ ...values, image: userPic });
       } else {
-        await updateTag({ ...values, id: initialValues._id });
+        await updateTag(values);
       }
       resetForm();
       onClose();

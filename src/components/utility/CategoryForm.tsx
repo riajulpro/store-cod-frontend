@@ -37,7 +37,6 @@ const CategoryForm: React.FC<{
       if (modalType === "create") {
         await createCategory({ ...values, image: userPic });
       } else {
-        console.log("update val", values);
         await updateCategory(values);
       }
       resetForm();

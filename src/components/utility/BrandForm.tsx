@@ -35,7 +35,7 @@ const BrandForm: React.FC<{
       if (modalType === "create") {
         await createBrand(finalValues);
       } else {
-        await updateBrand({ ...finalValues, id: initialValues.id });
+        await updateBrand(finalValues);
       }
       resetForm();
       onClose();
