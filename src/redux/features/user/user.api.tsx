@@ -1,4 +1,5 @@
 import { api } from "@/redux/api/appSlice";
+import { TCustomer } from "@/types/customer";
 
 const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -19,6 +20,20 @@ const userApi = api.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
+    getAuthor: builder.query<{ data: TCustomer }, string>({
+      query: (token) => ({
+        url: `/auth/auth-state`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      providesTags: ["user"],
+    }),
   }),
 });
-export const { useRegisterCustomerMutation, useLoginUserMutation } = userApi;
+export const {
+  useRegisterCustomerMutation,
+  useLoginUserMutation,
+  useGetAuthorQuery,
+} = userApi;
