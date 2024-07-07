@@ -11,11 +11,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   if (isLoading) {
-    return (
-      <div className="w-[100vw] center pt-[100px]">
-        <Loading />
-      </div>
-    );
+    return <Loading />;
   }
 
   return <>{children}</>;
