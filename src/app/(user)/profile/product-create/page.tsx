@@ -39,19 +39,17 @@ const ProductForm: React.FC = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      // photo: "",
       category: "",
       description: "",
       stock: 0,
       price: 0,
       discountPrice: 0,
       brand: "",
-      service: "",
       tag: "",
+      service: ""
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Required"),
-      // photo: Yup.string().required("Required"),
       category: Yup.string().required("Required"),
       stock: Yup.number().required("Required").min(1, "Must be at least 1"),
       price: Yup.number().required("Required").min(0, "Must be at least 0"),
@@ -60,10 +58,23 @@ const ProductForm: React.FC = () => {
         .min(0, "Must be at least 0"),
       description: Yup.string().required("Required"),
       brand: Yup.string().required("Required"),
-      // tag: Yup.string().required('Required'),
     }),
     onSubmit: async (values) => {
       try {
+
+        if(values.category) {
+          const categoryVal = categories.data.find((category:{value:string}) => category.value === values.category)
+          values.category = categoryVal._id
+        }
+        if(values.brand) {
+          const brandVal = brands.data.find((brand:{value:string}) => brand.value === values.brand)
+          values.brand = brandVal._id
+        }
+        if(values.tag) {
+          const tagVal = tags.data.find((tag:{value:string}) => tag.value === values.tag)
+          values.tag = tagVal._id
+        }
+
         console.log("values", {...values, photo: userPic});
 
         await createProduct({...values, photo: userPic}).unwrap();

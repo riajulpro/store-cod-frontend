@@ -17,10 +17,25 @@ import { useGetAllBrandsQuery } from "@/redux/features/brand/brand.api";
 import { useGetAllTagsQuery } from "@/redux/features/tag.api";
 import { LuUploadCloud } from "react-icons/lu";
 
+
+interface FormState {
+  name: string;
+  photo: string;
+  category: {_id:string, label:string};
+  description: string;
+  stock: number;
+  price: number;
+  discountPrice: number;
+  brand: {_id:string, label:string};
+  service: string | object; 
+  tag: {_id:string, label:string}; 
+}
+
+
 const ManageProducts = () => {
   const { data: products, error, isLoading } = useGetAllProductsQuery({});
   const [createProduct] = useCreateProductMutation();
-  const [updateProduct] = useUpdateProductMutation();
+  const [updateProduct, {isSuccess:successUpdate, error:errorupdate}] = useUpdateProductMutation();
   const [deleteProduct, { isSuccess: isSuccessDel, isLoading: isLoadingDel }] =
     useDeleteProductMutation();
 
@@ -28,17 +43,17 @@ const ManageProducts = () => {
   const { data: brands } = useGetAllBrandsQuery(undefined);
   const { data: tags } = useGetAllTagsQuery(undefined);
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FormState>({
     name: "",
     photo: "",
-    category: "",
+    category: {_id:"", label: ""},
     description: "",
     stock: 0,
     price: 0,
     discountPrice: 0,
-    brand: "",
+    brand: {_id:"", label: ""},
     service: "",
-    tag: "",
+    tag: {_id:"", label: ""}
   });
   const [userPic, setUserPic] = useState<string | undefined>();
   const [isEditing, setIsEditing] = useState(false);
@@ -78,14 +93,14 @@ const ManageProducts = () => {
       setForm({
         name: "",
         photo: "",
-        category: "",
+        category: {_id:"", label: ""},
         description: "",
         stock: 0,
         price: 0,
         discountPrice: 0,
-        brand: "",
+        brand: {_id:"", label: ""},
         service: "",
-        tag: "",
+        tag: {_id:"", label: ""},
       });
       setUserPic("");
       setModalIsOpen(false);
@@ -93,6 +108,13 @@ const ManageProducts = () => {
       console.error(error);
     }
   };
+
+  if(successUpdate) {
+    toast.success("Product Updated SuccessFully", {id: "update-ok"})
+  }
+  if(errorupdate) {
+    toast.error("Product Updated SuccessFully", {id: "update-error"})
+  }
 
   const handleEdit = (product: any) => {
     setForm(product);
@@ -165,11 +187,13 @@ const ManageProducts = () => {
 
       {modalIsOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full h-[600px] overflow-auto smoothScrollbar">
             <h2 className="text-xl font-bold mb-4">
               {isEditing ? "Edit Product" : "Add Product"}
             </h2>
             <form onSubmit={handleSubmit}>
+            <div className="">
+            <label htmlFor="">Name</label>
               <input
                 type="text"
                 name="name"
@@ -179,6 +203,7 @@ const ManageProducts = () => {
                 className="w-full p-2 mb-4 border rounded"
                 required
               />
+              </div>
               <label htmlFor="profile">
                 <input
                   id="profile"
@@ -206,59 +231,95 @@ const ManageProducts = () => {
                   </div>
                 </div>
               </label>
-              <input
-                type="text"
+              <select
                 name="category"
-                value={form.category}
+                value={form.category._id}
                 onChange={handleInputChange}
-                placeholder="Category ID"
                 className="w-full p-2 mb-4 border rounded"
                 required
-              />
-              <textarea
-                name="description"
-                value={form.description}
+              >
+                <option value={form.category?._id! as string}>{form.category.label! as string}</option>
+                {categories?.data?.map((category: any) => (
+                  <option key={category._id} value={category._id}>
+                    {category.label}
+                  </option>
+                ))}
+              </select>
+              <div className="">
+                <label htmlFor="">Description</label>
+                <textarea
+                  name="description"
+                  value={form.description}
+                  onChange={handleInputChange}
+                  placeholder="Description"
+                  className="w-full p-2 mb-4 border rounded"
+                  required
+                ></textarea>
+              </div>
+              <div className="">
+                <label htmlFor="">Stock</label>
+                <input
+                  type="number"
+                  name="stock"
+                  value={form.stock}
+                  onChange={handleInputChange}
+                  placeholder="Stock"
+                  className="w-full p-2 mb-4 border rounded"
+                  required
+                />
+              </div>
+              <div className="">
+                <label htmlFor="">Price</label>
+                <input
+                  type="number"
+                  name="price"
+                  value={form.price}
+                  onChange={handleInputChange}
+                  placeholder="Price"
+                  className="w-full p-2 mb-4 border rounded"
+                  required
+                />
+              </div>
+              <div className="">
+                <label htmlFor="">Discount Price</label>
+                <input
+                  type="number"
+                  name="discountPrice"
+                  value={form.discountPrice}
+                  onChange={handleInputChange}
+                  placeholder="Discount Price"
+                  className="w-full p-2 mb-4 border rounded"
+                  required
+                />
+              </div>
+              <select
+                name="brands"
+                value={form.brand._id}
                 onChange={handleInputChange}
-                placeholder="Description"
                 className="w-full p-2 mb-4 border rounded"
                 required
-              ></textarea>
-              <input
-                type="number"
-                name="stock"
-                value={form.stock}
+              >
+                <option value={form.brand?._id! as string}>{form.brand.label! as string}</option>
+                {brands?.data?.map((brand: any) => (
+                  <option key={brand._id} value={brand._id}>
+                    {brand.label}
+                  </option>
+                ))}
+              </select>
+              <select
+                name="tag"
+                value={form.tag._id}
                 onChange={handleInputChange}
-                placeholder="Stock"
                 className="w-full p-2 mb-4 border rounded"
                 required
-              />
-              <input
-                type="number"
-                name="price"
-                value={form.price}
-                onChange={handleInputChange}
-                placeholder="Price"
-                className="w-full p-2 mb-4 border rounded"
-                required
-              />
-              <input
-                type="number"
-                name="discountPrice"
-                value={form.discountPrice}
-                onChange={handleInputChange}
-                placeholder="Discount Price"
-                className="w-full p-2 mb-4 border rounded"
-                required
-              />
-              <input
-                type="text"
-                name="brand"
-                value={form.brand}
-                onChange={handleInputChange}
-                placeholder="Brand"
-                className="w-full p-2 mb-4 border rounded"
-                required
-              />
+              >
+                <option value={form.tag?._id! as string}>{form.tag.label! as string}</option>
+                {tags?.data?.map((tag: any) => (
+                  <option key={tag._id} value={tag._id}>
+                    {tag.label}
+                  </option>
+                ))}
+              </select>
               <div className="flex justify-end">
                 <button
                   type="button"
