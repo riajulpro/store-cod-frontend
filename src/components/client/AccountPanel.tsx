@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { logout } from "@/redux/features/user/user.slice";
+import { logout } from "@/redux/features/auth/auth.slice";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useDispatch } from "react-redux";

@@ -1,6 +1,7 @@
 "use client";
-import { useLoginUserMutation } from "@/redux/features/user/user.api";
-import { setUser } from "@/redux/features/user/user.slice";
+
+import { useLoginUserMutation } from "@/redux/features/auth/auth.api";
+import { setUser } from "@/redux/features/auth/auth.slice";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Cookies from "js-cookie";
 import { LogIn } from "lucide-react";

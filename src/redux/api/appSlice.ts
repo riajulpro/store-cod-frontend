@@ -6,7 +6,7 @@ import {
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query/react";
 import Cookies from "js-cookie";
-import { setUser } from "../features/user/user.slice";
+import { setUser } from "../features/auth/auth.slice";
 import { RootState } from "../store/store";
 
 const url = process.env.NEXT_PUBLIC_AUTH_API;
@@ -73,6 +73,15 @@ export const api = createApi({
   // }),
   // tagTypes: ["user", "Product", "Category", "tag", "Sell", "Brand", "Tag"],
   baseQuery: baseQueryWithRefreshToken,
-  tagTypes: ["user", "Product", "Category", "tag", "Sell", "Brand", "Tag"],
+  tagTypes: [
+    "user",
+    "Product",
+    "Category",
+    "tag",
+    "Sell",
+    "Brand",
+    "Tag",
+    "customer",
+  ],
   endpoints: () => ({}),
 });

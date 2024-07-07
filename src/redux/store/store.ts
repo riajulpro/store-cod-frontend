@@ -1,18 +1,19 @@
 import { configureStore } from "@reduxjs/toolkit";
 import {
-  persistStore,
-  persistReducer,
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
+  persistReducer,
+  persistStore,
   PURGE,
   REGISTER,
+  REHYDRATE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { api } from "../api/appSlice";
+import authReducer from "../features/auth/auth.slice";
 import cartReducer from "../features/cart/cart.slice";
-import authReducer from "../features/user/user.slice";
+import wishlistReducer from "../features/wishlist/wishlist.slice";
 
 const persistConfig = {
   key: "root",
@@ -20,13 +21,15 @@ const persistConfig = {
 };
 
 const persistedCartReducer = persistReducer(persistConfig, cartReducer);
+const persistedWishReducer = persistReducer(persistConfig, wishlistReducer);
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 
 const store = configureStore({
   reducer: {
     cart: persistedCartReducer,
-    [api.reducerPath]: api.reducer,
+    wishlist: persistedWishReducer,
     auth: persistedAuthReducer,
+    [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -41,4 +44,4 @@ const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export { store, persistor };
+export { persistor, store };

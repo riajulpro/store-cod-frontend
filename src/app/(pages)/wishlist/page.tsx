@@ -1,5 +1,11 @@
+import FavoriteView from "@/components/client/FavoriteView";
+
 const WishListPage = () => {
-  return <div>Wish List</div>;
+  return (
+    <>
+      <FavoriteView />
+    </>
+  );
 };
 
 export default WishListPage;
