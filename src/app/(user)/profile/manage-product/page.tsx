@@ -8,6 +8,14 @@ import {
 import { Loader } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { AiOutlineDelete } from "react-icons/ai";
+import { FaRegEdit } from "react-icons/fa";
+import uploadImage from "@/utils/imageUploadByFetch";
+import Image from "next/image";
+import { useGetAllCategoriesQuery } from "@/redux/features/category/category.api";
+import { useGetAllBrandsQuery } from "@/redux/features/brand/brand.api";
+import { useGetAllTagsQuery } from "@/redux/features/tag.api";
+import { LuUploadCloud } from "react-icons/lu";
 
 const ManageProducts = () => {
   const { data: products, error, isLoading } = useGetAllProductsQuery({});
@@ -15,6 +23,10 @@ const ManageProducts = () => {
   const [updateProduct] = useUpdateProductMutation();
   const [deleteProduct, { isSuccess: isSuccessDel, isLoading: isLoadingDel }] =
     useDeleteProductMutation();
+
+  const { data: categories } = useGetAllCategoriesQuery();
+  const { data: brands } = useGetAllBrandsQuery(undefined);
+  const { data: tags } = useGetAllTagsQuery(undefined);
 
   const [form, setForm] = useState({
     name: "",
@@ -25,10 +37,29 @@ const ManageProducts = () => {
     price: 0,
     discountPrice: 0,
     brand: "",
+    service: "",
+    tag: "",
   });
+  const [userPic, setUserPic] = useState<string | undefined>();
   const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditId] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    const toastid = toast.loading("Please wait updating your image...");
+
+    try {
+      if (file) {
+        const imageUrl = await uploadImage(file, userPic || "");
+        setUserPic(imageUrl?.url as string);
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+    } finally {
+      toast.dismiss(toastid);
+    }
+  };
 
   const handleInputChange = (e: { target: { name: any; value: any } }) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -38,11 +69,11 @@ const ManageProducts = () => {
     e.preventDefault();
     try {
       if (isEditing) {
-        await updateProduct({ id: editId, ...form });
+        await updateProduct({ id: editId, ...form, photo: userPic });
         setIsEditing(false);
         setEditId(null);
       } else {
-        await createProduct(form);
+        await createProduct({ ...form, photo: userPic });
       }
       setForm({
         name: "",
@@ -53,7 +84,10 @@ const ManageProducts = () => {
         price: 0,
         discountPrice: 0,
         brand: "",
+        service: "",
+        tag: "",
       });
+      setUserPic("");
       setModalIsOpen(false);
     } catch (error) {
       console.error(error);
@@ -62,6 +96,7 @@ const ManageProducts = () => {
 
   const handleEdit = (product: any) => {
     setForm(product);
+    setUserPic(product.photo);
     setIsEditing(true);
     setEditId(product._id);
     setModalIsOpen(true);
@@ -75,14 +110,17 @@ const ManageProducts = () => {
     }
   };
 
-  if (isLoading) return <div className="center w-full h-[200px]">
-    <Loader />
-  </div>;
+  if (isLoading)
+    return (
+      <div className="center w-full h-[200px]">
+        <Loader />
+      </div>
+    );
   if (isSuccessDel) {
-    toast.success("Deleted Successfully", {id: "del-product"});
+    toast.success("Deleted Successfully", { id: "del-product" });
   }
   if (isLoadingDel) {
-      toast.error("Deletetion failed", {id: "del-product-error"});
+    toast.error("Deletion failed", { id: "del-product-error" });
   }
   if (error) return <p>Error: {(error as { message: string }).message}</p>;
 
@@ -106,18 +144,18 @@ const ManageProducts = () => {
               <td className="py-2 px-4 border-b">{product.description}</td>
               <td className="py-2 px-4 border-b">{product.stock}</td>
               <td className="py-2 px-4 border-b">{product.price}</td>
-              <td className="py-2 px-4 border-b">
+              <td className="py-2 px-4 border-b flex gap-[10px]">
                 <button
                   className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
                   onClick={() => handleEdit(product)}
                 >
-                  Edit
+                  <FaRegEdit />
                 </button>
                 <button
                   className="bg-red-500 text-white px-4 py-2 rounded"
                   onClick={() => handleDelete(product._id)}
                 >
-                  Delete
+                  <AiOutlineDelete />
                 </button>
               </td>
             </tr>
@@ -141,15 +179,33 @@ const ManageProducts = () => {
                 className="w-full p-2 mb-4 border rounded"
                 required
               />
-              <input
-                type="text"
-                name="photo"
-                value={form.photo}
-                onChange={handleInputChange}
-                placeholder="Photo URL"
-                className="w-full p-2 mb-4 border rounded"
-                required
-              />
+              <label htmlFor="profile">
+                <input
+                  id="profile"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="hidden"
+                />
+                <div className="relative group overflow-hidden rounded-md">
+                  {userPic ? (
+                    <Image
+                      src={userPic || "/images/profileicon.png"}
+                      alt="profile pic"
+                      height={400}
+                      width={400}
+                      className="w-full h-[250px] rounded-md object-cover border border-primary inline-block"
+                    />
+                  ) : (
+                    <div className="w-full h-[250px] rounded-md border border-primary center bg-gray-300 font-bold">
+                      Upload image
+                    </div>
+                  )}
+                  <div className="bg-black/25 absolute inset-0 z-10 scale-150 group-hover:scale-100 opacity-0 group-hover:opacity-100 duration-150 flex items-center justify-center cursor-pointer">
+                    <LuUploadCloud className="text-white text-2xl" />
+                  </div>
+                </div>
+              </label>
               <input
                 type="text"
                 name="category"

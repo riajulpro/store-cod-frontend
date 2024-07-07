@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Loader } from "lucide-react";
@@ -7,45 +7,70 @@ import { useGetAllCategoriesQuery } from "@/redux/features/category/category.api
 import { useGetAllBrandsQuery } from "@/redux/features/brand/brand.api";
 import { useGetAllTagsQuery } from "@/redux/features/tag.api";
 import { useCreateProductMutation } from "@/redux/features/product/product.api";
+import { toast } from "sonner";
+import uploadImage from "@/utils/imageUploadByFetch";
+import { LuUploadCloud } from "react-icons/lu";
+import Image from "next/image";
 
 const ProductForm: React.FC = () => {
-  const [createProduct, { isLoading, isSuccess, isError, error }] = useCreateProductMutation(undefined);
+  const [createProduct, { isLoading, isSuccess, isError, error }] =
+    useCreateProductMutation(undefined);
   const { data: categories } = useGetAllCategoriesQuery(undefined);
   const { data: brands } = useGetAllBrandsQuery(undefined);
   const { data: tags } = useGetAllTagsQuery(undefined);
+  const [userPic, setUserPic] = useState<string | undefined>();
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    const toastid = toast.loading("Please wait updating your image...");
+
+    try {
+      if (file) {
+        const imageUrl = await uploadImage(file, userPic || "");
+        setUserPic(imageUrl?.url as string);
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+    } finally {
+      toast.dismiss(toastid);
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
-      name: '',
-      photo: '',
-      category: '',
-      description: '',
+      name: "",
+      // photo: "",
+      category: "",
+      description: "",
       stock: 0,
       price: 0,
       discountPrice: 0,
-      brand: '',
-      service: '',
-      tag: '',
+      brand: "",
+      service: "",
+      tag: "",
     },
     validationSchema: Yup.object({
-      name: Yup.string().required('Required'),
-      photo: Yup.string().required('Required'),
-      category: Yup.string().required('Required'),
-      stock: Yup.number().required('Required').min(1, 'Must be at least 1'),
-      price: Yup.number().required('Required').min(0, 'Must be at least 0'),
-      discountPrice: Yup.number().required('Required').min(0, 'Must be at least 0'),
-      // description: Yup.string().required('Required'),
-      brand: Yup.string().required('Required'),
+      name: Yup.string().required("Required"),
+      // photo: Yup.string().required("Required"),
+      category: Yup.string().required("Required"),
+      stock: Yup.number().required("Required").min(1, "Must be at least 1"),
+      price: Yup.number().required("Required").min(0, "Must be at least 0"),
+      discountPrice: Yup.number()
+        .required("Required")
+        .min(0, "Must be at least 0"),
+      description: Yup.string().required("Required"),
+      brand: Yup.string().required("Required"),
       // tag: Yup.string().required('Required'),
     }),
     onSubmit: async (values) => {
       try {
-        console.log("values", values);
-        
-        await createProduct(values).unwrap();
+        console.log("values", {...values, photo: userPic});
+
+        await createProduct({...values, photo: userPic}).unwrap();
+        setUserPic("")
         formik.resetForm();
       } catch (error) {
-        console.error('Failed to create product:', error);
+        console.error("Failed to create product:", error);
       }
     },
   });
@@ -69,18 +94,34 @@ const ProductForm: React.FC = () => {
           ) : null}
         </div>
         <div>
-          <label className="block text-sm font-medium">Photo URL</label>
-          <input
-            type="text"
-            name="photo"
-            value={formik.values.photo}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className="w-full border p-2 rounded"
-          />
-          {formik.touched.photo && formik.errors.photo ? (
-            <div className="text-red-500 text-sm">{formik.errors.photo}</div>
-          ) : null}
+          <label htmlFor="profile">
+            <input
+              id="profile"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="hidden"
+            />
+            <div className="relative group overflow-hidden rounded-md">
+              {userPic ? (
+                <Image
+                  src={userPic || "/images/profileicon.png"}
+                  alt="profile pic"
+                  height={400}
+                  width={400}
+                  className="w-full h-[250px] rounded-md object-cover border border-primary inline-block"
+                />
+              ) : (
+                <div className="w-full h-[250px] rounded-md border border-primary center bg-gray-300 font-bold">
+                  Upload image
+                </div>
+              )}
+
+              <div className="bg-black/25 absolute inset-0 z-10 scale-150 group-hover:scale-100 opacity-0 group-hover:opacity-100 duration-150 flex items-center justify-center cursor-pointer">
+                <LuUploadCloud className="text-white text-2xl" />
+              </div>
+            </div>
+          </label>
         </div>
         <div>
           <label className="block text-sm font-medium">Category</label>
@@ -92,8 +133,12 @@ const ProductForm: React.FC = () => {
             className="w-full border p-2 rounded"
           >
             <option value="" label="Select category" />
-            {categories?.data.map((category:any) => (
-              <option key={category.value} value={category.value} label={category.label} />
+            {categories?.data.map((category: any) => (
+              <option
+                key={category.value}
+                value={category.value}
+                label={category.label}
+              />
             ))}
           </select>
           {formik.touched.category && formik.errors.category ? (
@@ -111,7 +156,9 @@ const ProductForm: React.FC = () => {
             className="w-full border p-2 rounded"
           />
           {formik.touched.description && formik.errors.description ? (
-            <div className="text-red-500 text-sm">{formik.errors.description}</div>
+            <div className="text-red-500 text-sm">
+              {formik.errors.description}
+            </div>
           ) : null}
         </div>
         <div>
@@ -153,7 +200,9 @@ const ProductForm: React.FC = () => {
             className="w-full border p-2 rounded"
           />
           {formik.touched.discountPrice && formik.errors.discountPrice ? (
-            <div className="text-red-500 text-sm">{formik.errors.discountPrice}</div>
+            <div className="text-red-500 text-sm">
+              {formik.errors.discountPrice}
+            </div>
           ) : null}
         </div>
         <div>
@@ -166,8 +215,12 @@ const ProductForm: React.FC = () => {
             className="w-full border p-2 rounded"
           >
             <option value="" label="Select brand" />
-            {brands?.data.map((brand:any) => (
-              <option key={brand.value} value={brand.value} label={brand.label} />
+            {brands?.data.map((brand: any) => (
+              <option
+                key={brand.value}
+                value={brand.value}
+                label={brand.label}
+              />
             ))}
           </select>
           {formik.touched.brand && formik.errors.brand ? (
@@ -195,19 +248,27 @@ const ProductForm: React.FC = () => {
             className="w-full border p-2 rounded"
           >
             <option value="" label="Select tag" />
-            {tags?.data?.map((tag:any) => (
+            {tags?.data?.map((tag: any) => (
               <option key={tag.value} value={tag.value} label={tag.label} />
             ))}
           </select>
         </div>
         <button
           type="submit"
-          className="mt-3 px-4 py-2 bg-blue-500 text-white rounded"
+          className="mt-3 px-4 py-2 bg-primaryMat/95 hover:bg-primaryMat text-white rounded"
         >
           {isLoading ? <Loader /> : "Create Product"}
         </button>
-        {isError && <div className="text-red-500 text-sm">{(error as any)?.data?.message}</div>}
-        {isSuccess && <div className="text-green-500 text-sm">Product created successfully</div>}
+        {isError && (
+          <div className="text-red-500 text-sm">
+            {(error as any)?.data?.message}
+          </div>
+        )}
+        {isSuccess && (
+          <div className="text-primaryMat text-sm">
+            Product created successfully
+          </div>
+        )}
       </form>
     </div>
   );
