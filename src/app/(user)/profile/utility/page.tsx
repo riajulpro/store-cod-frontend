@@ -1,5 +1,7 @@
 "use client";
-import CategoryList from "@/components/utility/CategoryUtility";
+import BrandList from "@/components/utility/BrandList";
+import CategoryList from "@/components/utility/CategoryList";
+import TagList from "@/components/utility/TagList";
 import React, { useState } from "react";
 
 const UtilityPage = () => {
@@ -32,8 +34,8 @@ const UtilityPage = () => {
       </div>
 
       {active === 1 && <CategoryList />}
-      {/* {active === 2 && <BrandForm />}  */}
-      {/* {active === 3 && <TagForm />}  */}
+      {active === 2 && <BrandList />} 
+      {active === 3 && <TagList />} 
     </div>
   );
 };

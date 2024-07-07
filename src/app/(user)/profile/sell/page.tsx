@@ -26,7 +26,7 @@ const Sell: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center min-h-screen w-full">
         <Loader />
       </div>
     );
