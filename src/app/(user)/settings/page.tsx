@@ -12,7 +12,6 @@ import "react-phone-number-input/style.css";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import * as Yup from "yup";
-
 interface FormValues {
   firstName?: string;
   lastName?: string;
@@ -90,6 +89,7 @@ const ProfileUpdate = () => {
       toast.dismiss(toastId);
     }
   };
+
   return (
     <div className="w-full">
       <h1 className="text-[25px] font-[600] mb-[20px]">Update Information</h1>
@@ -148,14 +148,16 @@ const ProfileUpdate = () => {
             <span className="text-red-500 text-sm">{contactErr}</span>
           </div>
 
-          <div className="mb-4">
-            <label className="block text-primaryTxt text-[18px] font-[600]">
+          <div>
+            <label htmlFor="address" className="block text-lg font-semibold">
               Address
             </label>
             <Field
-              type="text"
+              as="textarea"
+              id="address"
               name="address"
-              className="mt-1 block w-full px-3 py-2 border border-borderColor rounded-md outline-none"
+              placeholder="Road#1, Robert Rd, Beach..."
+              className="mt-1 block w-full px-3 py-2 border border-borderColor rounded-md outline-none min-h-[100px]"
             />
             <ErrorMessage
               name="address"

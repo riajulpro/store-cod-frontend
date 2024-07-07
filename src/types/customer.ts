@@ -9,3 +9,8 @@ export type TCustomer = {
   createdAt:string
   [key: string]: any;
 };
+
+
+export type TCustomerOrder = {
+  
+}

@@ -9,7 +9,7 @@ import Cookies from "js-cookie";
 import { setUser } from "../features/auth/auth.slice";
 import { RootState } from "../store/store";
 
-const url = process.env.NEXT_PUBLIC_AUTH_API;
+const url = process.env.NEXT_PUBLIC_API_URL;
 
 const baseQuery = fetchBaseQuery({
   baseUrl: url,

@@ -1,15 +1,19 @@
 "use client";
 
+import React, { FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, SendHorizontal } from "lucide-react";
 
-const ContactUsPage = ({ className = "" }: { className?: string }) => {
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
+interface ContactUsPageProps {
+  className?: string;
+}
 
+const ContactUsPage: React.FC<ContactUsPageProps> = ({ className = "" }) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     console.log("You have clicked!");
   };
 
