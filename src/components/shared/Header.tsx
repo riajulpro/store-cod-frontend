@@ -12,6 +12,7 @@ import { Badge } from "../ui/badge";
 const Header = () => {
   const location = usePathname();
   const { cart: cartItems } = useAppSelector((state) => state.cart);
+  const { wishlist: wishlistItems } = useAppSelector((state) => state.wishlist);
 
   const { user, token } = useAppSelector((state) => state.auth);
 
@@ -40,7 +41,15 @@ const Header = () => {
             href="/wishlist"
             className="text-slate-700 hover:text-green-500"
           >
-            <Heart />
+            <div className="relative">
+              <Heart />{" "}
+              <Badge
+                variant="outline"
+                className="absolute py-0 px-[4px] z-20 -top-2 -right-2 bg-green-500 text-white"
+              >
+                {wishlistItems.length}
+              </Badge>
+            </div>
           </Link>
           <Link href="/cart" className="text-slate-700 hover:text-green-500">
             <div className="relative">
