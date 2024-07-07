@@ -1,5 +1,6 @@
 "use client";
-import { useRegisterCustomerMutation } from "@/redux/features/auth/user.api";
+
+import { useRegisterCustomerMutation } from "@/redux/features/auth/auth.api";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
