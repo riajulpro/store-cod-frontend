@@ -49,7 +49,7 @@ const ManageProducts = () => {
   const [deleteProduct, { isSuccess: isSuccessDel, isLoading: isLoadingDel }] =
     useDeleteProductMutation();
 
-  const { data: categories } = useGetAllCategoriesQuery();
+  const { data: categories } = useGetAllCategoriesQuery(undefined);
   const { data: brands } = useGetAllBrandsQuery(undefined);
   const { data: tags } = useGetAllTagsQuery(undefined);
 
@@ -360,24 +360,24 @@ const ManageProducts = () => {
                   {form.brand.label! as string}
                 </option>
                 {brands?.data?.map((brand: any) => (
-                  <option key={brand._id} value={brand._id}>
+                  <option key={brand?._id} value={brand?._id}>
                     {brand.label}
                   </option>
                 ))}
               </select>
               <select
                 name="tag"
-                value={form.tag._id}
+                value={form.tag?._id}
                 onChange={handleInputChange}
                 className="w-full p-2 mb-4 border rounded"
                 required
               >
                 <option value={form.tag?._id! as string}>
-                  {form.tag.label! as string}
+                  {form.tag?.label! as string}
                 </option>
                 {tags?.data?.map((tag: any) => (
-                  <option key={tag._id} value={tag._id}>
-                    {tag.label}
+                  <option key={tag?._id} value={tag?._id}>
+                    {tag?.label}
                   </option>
                 ))}
               </select>
