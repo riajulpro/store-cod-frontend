@@ -5,6 +5,7 @@ import { useAppDispatch } from "@/redux/hook";
 import { IProduct } from "@/types/product";
 import { Heart } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const ProductAddToCart = ({ data }: { data: IProduct }) => {
   const [currentSize, setCurrentSize] = useState<string>("50g");
@@ -24,6 +25,8 @@ const ProductAddToCart = ({ data }: { data: IProduct }) => {
     };
 
     dispatch(addCart(body));
+
+    toast.success("Cart added successfully!");
     console.log("You are about to add these", body);
   };
 

@@ -1,9 +1,24 @@
 "use client";
+import { addCart } from "@/redux/features/cart/cart.slice";
+import { useAppDispatch } from "@/redux/hook";
 import { IProduct } from "@/types/product";
 import { ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
 const ProductAddToCartBtn = ({ product }: { product: IProduct }) => {
+  const dispatch = useAppDispatch();
+
   const handleAddToCart = () => {
+    const body = {
+      id: product._id,
+      photo: product.photo,
+      name: product.name,
+      rating: product.averageRating,
+      price: product.discountPrice,
+      quantity: "1",
+    };
+
+    dispatch(addCart(body));
+    console.log("You are about to add these", body);
     toast.success("Cart added");
     console.log(product);
   };
