@@ -49,8 +49,8 @@ export const ownerLinks = [
     Icon: BsCartCheck,
   },
   {
-    href: "/manage-product",
+    href: "/profile/manage-product",
     label: "Manage Product",
-    Icon: MdOutlineManageHistory ,
+    Icon: MdOutlineManageHistory,
   },
 ];

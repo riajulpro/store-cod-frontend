@@ -59,7 +59,20 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 
 export const api = createApi({
   reducerPath: "api",
+  // baseQuery: fetchBaseQuery({
+  //   baseUrl: process.env.NEXT_PUBLIC_AUTH_API,
+  //   prepareHeaders: (headers) => {
+  //     const token = Cookies.get("accessToken");
+  //     if (token) {
+  //       headers.set("Authorization", `Bearer ${token}`);
+  //     }
+
+  //     return headers;
+  //   },
+  //   // credentials: 'include',
+  // }),
+  // tagTypes: ["user", "Product", "Category", "tag", "Sell", "Brand", "Tag"],
   baseQuery: baseQueryWithRefreshToken,
-  tagTypes: ["user", "Product", "Category", "tag", "Sell"],
+  tagTypes: ["user", "Product", "Category", "tag", "Sell", "Brand", "Tag"],
   endpoints: () => ({}),
 });

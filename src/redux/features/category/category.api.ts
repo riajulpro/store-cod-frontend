@@ -15,5 +15,5 @@ const categoryAPI: any = api.injectEndpoints({
 });
 
 export const {
-  useGetAllCategoriesQuery, // get all products (new)
+  useGetAllCategoriesQuery,
 } = categoryAPI;

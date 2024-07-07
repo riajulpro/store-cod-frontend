@@ -2,11 +2,17 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useCreateProductMutation } from "@/redux/features/product/product.api";
 import { Loader } from "lucide-react";
+import { useGetAllCategoriesQuery } from "@/redux/features/category/category.api";
+import { useGetAllBrandsQuery } from "@/redux/features/brand/brand.api";
+import { useGetAllTagsQuery } from "@/redux/features/tag.api";
+import { useCreateProductMutation } from "@/redux/features/product/product.api";
 
 const ProductForm: React.FC = () => {
-  const [createProduct, { isLoading, isSuccess, isError, error }] = useCreateProductMutation();
+  const [createProduct, { isLoading, isSuccess, isError, error }] = useCreateProductMutation(undefined);
+  const { data: categories } = useGetAllCategoriesQuery(undefined);
+  const { data: brands } = useGetAllBrandsQuery(undefined);
+  const { data: tags } = useGetAllTagsQuery(undefined);
 
   const formik = useFormik({
     initialValues: {
@@ -18,7 +24,6 @@ const ProductForm: React.FC = () => {
       price: 0,
       discountPrice: 0,
       brand: '',
-      cell: '',
       service: '',
       tag: '',
     },
@@ -26,14 +31,17 @@ const ProductForm: React.FC = () => {
       name: Yup.string().required('Required'),
       photo: Yup.string().required('Required'),
       category: Yup.string().required('Required'),
-      description: Yup.string().required('Required'),
       stock: Yup.number().required('Required').min(1, 'Must be at least 1'),
       price: Yup.number().required('Required').min(0, 'Must be at least 0'),
       discountPrice: Yup.number().required('Required').min(0, 'Must be at least 0'),
+      // description: Yup.string().required('Required'),
       brand: Yup.string().required('Required'),
+      // tag: Yup.string().required('Required'),
     }),
     onSubmit: async (values) => {
       try {
+        console.log("values", values);
+        
         await createProduct(values).unwrap();
         formik.resetForm();
       } catch (error) {
@@ -75,15 +83,19 @@ const ProductForm: React.FC = () => {
           ) : null}
         </div>
         <div>
-          <label className="block text-sm font-medium">Category ID</label>
-          <input
-            type="text"
+          <label className="block text-sm font-medium">Category</label>
+          <select
             name="category"
             value={formik.values.category}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             className="w-full border p-2 rounded"
-          />
+          >
+            <option value="" label="Select category" />
+            {categories?.data.map((category:any) => (
+              <option key={category.value} value={category.value} label={category.label} />
+            ))}
+          </select>
           {formik.touched.category && formik.errors.category ? (
             <div className="text-red-500 text-sm">{formik.errors.category}</div>
           ) : null}
@@ -146,28 +158,21 @@ const ProductForm: React.FC = () => {
         </div>
         <div>
           <label className="block text-sm font-medium">Brand</label>
-          <input
-            type="text"
+          <select
             name="brand"
             value={formik.values.brand}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             className="w-full border p-2 rounded"
-          />
+          >
+            <option value="" label="Select brand" />
+            {brands?.data.map((brand:any) => (
+              <option key={brand.value} value={brand.value} label={brand.label} />
+            ))}
+          </select>
           {formik.touched.brand && formik.errors.brand ? (
             <div className="text-red-500 text-sm">{formik.errors.brand}</div>
           ) : null}
-        </div>
-        <div>
-          <label className="block text-sm font-medium">Cell</label>
-          <input
-            type="text"
-            name="cell"
-            value={formik.values.cell}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className="w-full border p-2 rounded"
-          />
         </div>
         <div>
           <label className="block text-sm font-medium">Service</label>
@@ -182,18 +187,22 @@ const ProductForm: React.FC = () => {
         </div>
         <div>
           <label className="block text-sm font-medium">Tag</label>
-          <input
-            type="text"
+          <select
             name="tag"
             value={formik.values.tag}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             className="w-full border p-2 rounded"
-          />
+          >
+            <option value="" label="Select tag" />
+            {tags?.data?.map((tag:any) => (
+              <option key={tag.value} value={tag.value} label={tag.label} />
+            ))}
+          </select>
         </div>
         <button
           type="submit"
-          className="mt-3 px-4 py-2 bg-primaryMat text-white rounded"
+          className="mt-3 px-4 py-2 bg-blue-500 text-white rounded"
         >
           {isLoading ? <Loader /> : "Create Product"}
         </button>
