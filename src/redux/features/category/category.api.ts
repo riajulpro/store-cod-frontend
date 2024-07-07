@@ -1,19 +1,51 @@
 import { api } from "@/redux/api/appSlice";
 
-const categoryAPI: any = api.injectEndpoints({
+const categoryAPI = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllCategories: builder.query({
-      query: () => {
-        return {
-          url: `/category`,
-          method: "GET",
-        };
-      },
+      query: () => ({
+        url: `/category`,
+        method: "GET",
+      }),
       providesTags: ["Category"],
+    }),
+    getCategoryById: builder.query({
+      query: (id: string) => ({
+        url: `/category/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Category"],
+    }),
+    createCategory: builder.mutation({
+      query: (newCategory) => ({
+        url: `/category`,
+        method: "POST",
+        body: newCategory,
+      }),
+      invalidatesTags: ["Category"],
+    }),
+    updateCategory: builder.mutation({
+      query: ({ id, ...category }) => ({
+        url: `/category/${id}`,
+        method: "PATCH",
+        body: category,
+      }),
+      invalidatesTags: ["Category"],
+    }),
+    deleteCategory: builder.mutation({
+      query: (id: string) => ({
+        url: `/category/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Category"],
     }),
   }),
 });
 
 export const {
   useGetAllCategoriesQuery,
+  useGetCategoryByIdQuery,
+  useCreateCategoryMutation,
+  useUpdateCategoryMutation,
+  useDeleteCategoryMutation,
 } = categoryAPI;

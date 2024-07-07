@@ -53,4 +53,9 @@ export const ownerLinks = [
     label: "Manage Product",
     Icon: MdOutlineManageHistory,
   },
+  {
+    href: "/profile/utility",
+    label: "Utility",
+    Icon: MdOutlineManageHistory,
+  },
 ];
