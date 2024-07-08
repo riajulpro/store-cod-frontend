@@ -49,7 +49,7 @@ const ManageProducts = () => {
   const [deleteProduct, { isSuccess: isSuccessDel, isLoading: isLoadingDel }] =
     useDeleteProductMutation();
 
-  const { data: categories } = useGetAllCategoriesQuery();
+  const { data: categories } = useGetAllCategoriesQuery(undefined);
   const { data: brands } = useGetAllBrandsQuery(undefined);
   const { data: tags } = useGetAllTagsQuery(undefined);
 
@@ -149,11 +149,9 @@ const ManageProducts = () => {
       </div>
     );
   if (isSuccessDel) {
-    toast.success("Deleted Successfully", { id: "del-product" });
+    toast.success("Deleted Successfully", { id: "del-product-" });
   }
-  if (isLoadingDel) {
-    toast.error("Deletion failed", { id: "del-product-error" });
-  }
+
   if (error) return <p>Error: {(error as { message: string }).message}</p>;
 
   const handlePageChange = (page: number) => {
@@ -179,7 +177,7 @@ const ManageProducts = () => {
               products?.data?.map((product: any) => (
                 <tr key={product._id}>
                   <td className="py-2 px-4 border-b">{product.name}</td>
-                  <td className="py-2 px-4 border-b">{product.description}</td>
+                  <td className="py-2 px-4 border-b  line-clamp-2">{product.description}</td>
                   <td className="py-2 px-4 border-b">{product.stock}</td>
                   <td className="py-2 px-4 border-b">{product.price}</td>
                   <td className="py-2 px-4 border-b flex gap-[10px]">
@@ -252,7 +250,7 @@ const ManageProducts = () => {
                 <input
                   type="text"
                   name="name"
-                  value={form.name}
+                  defaultValue={form.name}
                   onChange={handleInputChange}
                   placeholder="Name"
                   className="w-full p-2 mb-4 border rounded"
@@ -288,7 +286,7 @@ const ManageProducts = () => {
               </label>
               <select
                 name="category"
-                value={form.category._id}
+                defaultValue={form.category._id}
                 onChange={handleInputChange}
                 className="w-full p-2 mb-4 border rounded"
                 required
@@ -306,7 +304,7 @@ const ManageProducts = () => {
                 <label htmlFor="">Description</label>
                 <textarea
                   name="description"
-                  value={form.description}
+                  defaultValue={form.description}
                   onChange={handleInputChange}
                   placeholder="Description"
                   className="w-full p-2 mb-4 border rounded"
@@ -318,7 +316,7 @@ const ManageProducts = () => {
                 <input
                   type="number"
                   name="stock"
-                  value={form.stock}
+                  defaultValue={form.stock}
                   onChange={handleInputChange}
                   placeholder="Stock"
                   className="w-full p-2 mb-4 border rounded"
@@ -330,7 +328,7 @@ const ManageProducts = () => {
                 <input
                   type="number"
                   name="price"
-                  value={form.price}
+                  defaultValue={form.price}
                   onChange={handleInputChange}
                   placeholder="Price"
                   className="w-full p-2 mb-4 border rounded"
@@ -342,7 +340,7 @@ const ManageProducts = () => {
                 <input
                   type="number"
                   name="discountPrice"
-                  value={form.discountPrice}
+                  defaultValue={form.discountPrice}
                   onChange={handleInputChange}
                   placeholder="Discount Price"
                   className="w-full p-2 mb-4 border rounded"
@@ -350,34 +348,34 @@ const ManageProducts = () => {
                 />
               </div>
               <select
-                name="brands"
-                value={form.brand._id}
+                name="brand"
+                defaultValue={form.brand._id}
                 onChange={handleInputChange}
                 className="w-full p-2 mb-4 border rounded"
                 required
               >
                 <option value={form.brand?._id! as string}>
-                  {form.brand.label! as string}
+                  {form.brand.label}
                 </option>
                 {brands?.data?.map((brand: any) => (
-                  <option key={brand._id} value={brand._id}>
+                  <option key={brand?._id} value={brand?._id}>
                     {brand.label}
                   </option>
                 ))}
               </select>
               <select
                 name="tag"
-                value={form.tag._id}
+                defaultValue={form.tag?._id}
                 onChange={handleInputChange}
                 className="w-full p-2 mb-4 border rounded"
                 required
               >
                 <option value={form.tag?._id! as string}>
-                  {form.tag.label! as string}
+                  {form.tag?.label}
                 </option>
                 {tags?.data?.map((tag: any) => (
-                  <option key={tag._id} value={tag._id}>
-                    {tag.label}
+                  <option key={tag?._id} value={tag?._id}>
+                    {tag?.label}
                   </option>
                 ))}
               </select>

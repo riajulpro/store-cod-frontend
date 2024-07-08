@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import uploadImage from "@/utils/imageUploadByFetch";
 import { LuUploadCloud } from "react-icons/lu";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const ProductForm: React.FC = () => {
   const [createProduct, { isLoading, isSuccess, isError, error }] =
@@ -19,6 +20,8 @@ const ProductForm: React.FC = () => {
   const { data: brands } = useGetAllBrandsQuery(undefined);
   const { data: tags } = useGetAllTagsQuery(undefined);
   const [userPic, setUserPic] = useState<string | undefined>();
+
+  const router = useRouter()
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -80,6 +83,7 @@ const ProductForm: React.FC = () => {
         await createProduct({...values, photo: userPic}).unwrap();
         setUserPic("")
         formik.resetForm();
+        router.push("/profile/manage-product")
       } catch (error) {
         console.error("Failed to create product:", error);
       }

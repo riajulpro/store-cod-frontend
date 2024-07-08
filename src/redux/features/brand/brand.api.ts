@@ -29,8 +29,8 @@ const brandAPI = api.injectEndpoints({
       invalidatesTags: ['Brand'],
     }),
     updateBrand: builder.mutation({
-      query: ({ id, ...brand }) => ({
-        url: `/brand/${id}`,
+      query: (brand) => ({
+        url: `/brand/${brand?._id}`,
         method: 'PATCH',
         body: brand,
       }),

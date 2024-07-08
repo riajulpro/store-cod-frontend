@@ -26,7 +26,7 @@ const Sell: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center min-h-screen w-full">
         <Loader />
       </div>
     );
@@ -47,17 +47,18 @@ const Sell: React.FC = () => {
             <thead>
               <tr>
                 <th className="py-2 px-4 border-b">ID</th>
+                <th className="py-2 px-4 border-b">Product Name</th>
                 <th className="py-2 px-4 border-b">Date</th>
                 <th className="py-2 px-4 border-b">Quantity</th>
                 <th className="py-2 px-4 border-b">Cost</th>
                 <th className="py-2 px-4 border-b">Customer Name</th>
-                <th className="py-2 px-4 border-b">Product Name</th>
               </tr>
             </thead>
             <tbody>
               { data?.data.length > 0 ? data?.data.map((sell: any) => (
                 <tr key={sell._id}>
                   <td className="py-2 px-4 border-b">{sell._id}</td>
+                  <td className="py-2 px-4 border-b">{sell.productId?.name}</td>
                   <td className="py-2 px-4 border-b">
                     {new Date(sell.date).toLocaleDateString()}
                   </td>
@@ -68,7 +69,6 @@ const Sell: React.FC = () => {
                   <td className="py-2 px-4 border-b">
                     {sell.customer?.firstName}
                   </td>
-                  <td className="py-2 px-4 border-b">{sell.productId?.name}</td>
                 </tr>
               ))
             :

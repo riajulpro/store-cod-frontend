@@ -19,7 +19,12 @@ const sellAPI = api.injectEndpoints({
         `/sell/my/orders?page=${page}&limit=${10}`,
       providesTags: ["Sell"],
     }),
+    trackUserOrder: builder.query({
+      query: (orderId:string) =>
+        `/sell/my/order/${orderId}`,
+      providesTags: ["Sell"],
+    }),
   }),
 });
 
-export const { useGetAllSellsQuery, useGetUserOrderHistroyQuery } = sellAPI;
+export const { useGetAllSellsQuery, useGetUserOrderHistroyQuery ,useTrackUserOrderQuery} = sellAPI;

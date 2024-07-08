@@ -6,9 +6,7 @@ const uploadImage = async (file: File, thumbnail: string) => {
     const fileData = new FormData();
     fileData.append("file", file || thumbnail);
 
-    console.log("public Id 1", );
     const publicId = getPublicId(user_photo);
-    console.log("public Id 2", publicId);
     
 
     if (publicId !== "false") {

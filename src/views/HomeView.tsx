@@ -1,4 +1,3 @@
-import ContactUsPage from "@/app/(pages)/contact-us/page";
 import Banner from "@/components/home/Banner";
 import Categories from "@/components/home/Categories";
 import DeliveryAd from "@/components/home/DeliveryAd";
@@ -7,6 +6,7 @@ import PopulerProduct from "@/components/home/PopulerProduct";
 import Review from "@/components/home/Review";
 
 import ShowCase from "@/components/home/ShowCase";
+import ContactUsView from "./ContactUsView";
 
 const HomeView = () => {
   return (
@@ -17,7 +17,8 @@ const HomeView = () => {
       <PopulerProduct />
       <DeliveryAd />
       <Review />
-      <ContactUsPage className="mt-[50px] rounded-[15px]" />
+
+      <ContactUsView className="mt-[50px] rounded-[15px]" />
       <DownloadApp />
     </>
   );
