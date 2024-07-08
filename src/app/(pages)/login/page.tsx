@@ -23,11 +23,18 @@ const validationSchema = Yup.object({
   password: Yup.string().required("* Password is required"),
 });
 
-const Login = () => {
+const Login = ({
+  searchParams: { subtotal, total, deliveryCharge, redirect },
+}: {
+  searchParams: {
+    subtotal: string;
+    total: string;
+    deliveryCharge: string;
+    redirect: string;
+  };
+}) => {
   const [login] = useLoginUserMutation();
-
   const router = useRouter();
-
   const dispatch = useDispatch();
 
   const handleLogin = async (values: TFormValues) => {
@@ -51,7 +58,11 @@ const Login = () => {
       toast.success("Successfully logged in", {
         description: "Welcome back!",
       });
-      router.push("/");
+      router.push(
+        redirect
+          ? `${redirect}?subtotal=${subtotal}&total=${total}&deliveryCharge=${deliveryCharge}`
+          : "/"
+      );
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
