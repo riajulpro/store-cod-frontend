@@ -5,8 +5,9 @@ import { Banknote } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-const ConfirmOrder = ({ total }: { total: string }) => {
-  const { cart: cartItems } = useAppSelector((state) => state.cart);
+const ConfirmOrder = () => {
+  const { cart: cartItems, subtotal } = useAppSelector((state) => state.cart);
+
   const { user } = useAppSelector((state) => state.auth);
   const router = useRouter();
 
@@ -20,7 +21,7 @@ const ConfirmOrder = ({ total }: { total: string }) => {
   const handleConfirm = async () => {
     const body = {
       sellData: sellData,
-      totalAmount: Number(total),
+      totalAmount: subtotal,
       paymentMethod: "COD",
       customer: user?._id,
       date: Date.now(),
@@ -46,7 +47,7 @@ const ConfirmOrder = ({ total }: { total: string }) => {
 
       console.log("order response: ", result);
 
-      router.push("/");
+      router.push("/confirmation");
     } catch (error: any) {
       console.log("Confirm error: ", error.message);
       toast.error(error.message);
