@@ -177,7 +177,7 @@ const ManageProducts = () => {
               products?.data?.map((product: any) => (
                 <tr key={product._id}>
                   <td className="py-2 px-4 border-b">{product.name}</td>
-                  <td className="py-2 px-4 border-b">{product.description}</td>
+                  <td className="py-2 px-4 border-b  line-clamp-2">{product.description}</td>
                   <td className="py-2 px-4 border-b">{product.stock}</td>
                   <td className="py-2 px-4 border-b">{product.price}</td>
                   <td className="py-2 px-4 border-b flex gap-[10px]">
