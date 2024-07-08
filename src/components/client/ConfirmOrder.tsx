@@ -39,7 +39,13 @@ const ConfirmOrder = ({ total }: { total: string }) => {
 
       const result = await res.json();
 
-      toast.success("Order succesfully submitted!");
+      if (!result.success) {
+        return toast.error("Order failed!");
+      }
+      toast.success("Order successfullly created!");
+
+      console.log("order response: ", result);
+
       router.push("/");
     } catch (error: any) {
       console.log("Confirm error: ", error.message);
