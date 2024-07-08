@@ -6,6 +6,8 @@ import { BsPlus } from "react-icons/bs";
 import { useDeleteTagMutation, useGetAllTagsQuery } from "@/redux/features/tag.api";
 import TagForm from "./TagForm";
 import { Loader } from "lucide-react";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 export type ITag = { _id: string; label: string; value: string, image: string };
 
@@ -71,13 +73,13 @@ const TagList: React.FC = () => {
                 onClick={() => handleEdit(tag)}
                 className="bg-yellow-500 text-white px-4 py-2 rounded mr-2"
               >
-                Edit
+                <FaEdit />
               </button>
               <button
                 onClick={() => handleDelete(tag._id)}
                 className="bg-red-500 text-white px-4 py-2 rounded"
               >
-                Delete
+                <MdDelete />
               </button>
             </div>
           </li>

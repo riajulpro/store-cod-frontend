@@ -10,6 +10,8 @@ import Modal from "../shared/ModalCompo";
 import Image from "next/image";
 import { BsPlus } from "react-icons/bs";
 import { Loader } from "lucide-react";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 export type ICategory = { _id: string; label: string; value: string, image:string };
 
@@ -82,13 +84,13 @@ const CategoryList: React.FC = () => {
                 onClick={() => handleEdit(category)}
                 className="bg-yellow-500 text-white px-4 py-2 rounded mr-2"
               >
-                Edit
+                <FaEdit />
               </button>
               <button
                 onClick={() => handleDelete(category._id)}
                 className="bg-red-500 text-white px-4 py-2 rounded"
               >
-                Delete
+                <MdDelete />
               </button>
             </div>
           </li>

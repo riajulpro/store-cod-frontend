@@ -19,14 +19,14 @@ const ProfileSidebar = () => {
   };
 
   return (
-    <div className="flex flex-col gap-[15px]">
+    <div className="flex flex-col gap-[15px] w-full md:w-fit">
       {user &&
         user.role === "customer" &&
         customerLinks.map(({ Icon, href, label }, i) => (
           <Link
             href={href}
             key={"profile" + i}
-            className={`w-[240px] border-[1px] border-borderColor py-[12px] rounded-[5px] flex items-center justify-start gap-[5px] font-[500] pl-[20px] ${
+            className={`w-full md:w-[240px] border-[1px] border-borderColor py-[12px] rounded-[5px] flex items-center justify-start gap-[5px] font-[500] pl-[20px] ${
               path === href
                 ? "bg-primaryMat text-white"
                 : "bg-white text-primaryTxt"
@@ -41,7 +41,7 @@ const ProfileSidebar = () => {
           <Link
             href={href}
             key={"profile" + i}
-            className={`w-[240px] border-[1px] border-borderColor py-[12px] rounded-[5px] flex items-center justify-start gap-[5px] font-[500] pl-[20px] ${
+            className={`w-full md:w-[240px] border-[1px] border-borderColor py-[12px] rounded-[5px] flex items-center justify-start gap-[5px] font-[500] pl-[20px] ${
               path === href
                 ? "bg-primaryMat text-white"
                 : "bg-white text-primaryTxt"

@@ -69,7 +69,7 @@ const CategoryForm: React.FC<{
       onSubmit={handleSubmit}
     >
       <Form>
-        <div className="mb-3 w-full md:w-[600px]">
+        <div className="mb-3 w-[300px] md:w-[600px]">
           <div className="flex w-full justify-end">
             <button onClick={() => onClose()} className="">
               <MdClose size={24} />
