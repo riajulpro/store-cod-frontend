@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { StripeCardElement } from "@stripe/stripe-js";
+import { useAppDispatch } from "@/redux/hook";
+import { clearCart } from "@/redux/features/cart/cart.slice";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -10,6 +12,7 @@ const CheckoutForm = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();

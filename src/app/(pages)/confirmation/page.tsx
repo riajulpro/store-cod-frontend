@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const page = () => {
@@ -6,9 +7,11 @@ const page = () => {
       <h1 className="text-3xl font-bold text-center">
         Your order is successfullly confirmed!
       </h1>
-      <button className="bg-green-500 text-white py-3 px-5">
-        Go to Dashboard
-      </button>
+      <Link href="/dashboard">
+        <button className="bg-green-500 text-white py-3 px-5 rounded-md">
+          Go to Dashboard
+        </button>
+      </Link>
     </div>
   );
 };

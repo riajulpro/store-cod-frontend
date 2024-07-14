@@ -4,11 +4,16 @@ import Image from "next/image";
 const AboutUsPage = () => {
   return (
     <>
+      <div
+        className={`min-h-96 bg-green-100 flex justify-center flex-col gap-2 items-center bg-[url('/images/banner-10.png')] bg-cover bg-center}`}
+      >
+        <h4 className="text-slate-600 text-lg font-bold">Learn</h4>
+        <h2 className="text-5xl font-bold my-1">About us</h2>
+        <p className="text-slate-700 max-w-lg mx-auto text-center">
+          A brief history of Us
+        </p>
+      </div>
       <div className="py-10 px-3 xl:px-0 max-w-7xl mx-auto">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-gray-800">About Us</h1>
-          <p className="text-sm text-slate-700">A Brief History</p>
-        </div>
         <div className="py-5 flex flex-col lg:flex-row items-center gap-5">
           <div className="flex-1 w-full">
             <Image

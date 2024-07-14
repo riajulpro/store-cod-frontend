@@ -1,12 +1,14 @@
 "use client";
 
-import { useAppSelector } from "@/redux/hook";
+import { clearCart } from "@/redux/features/cart/cart.slice";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { Banknote } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const ConfirmOrder = () => {
   const { cart: cartItems, subtotal } = useAppSelector((state) => state.cart);
+  const dispatch = useAppDispatch();
 
   const { user } = useAppSelector((state) => state.auth);
   const router = useRouter();
@@ -46,6 +48,8 @@ const ConfirmOrder = () => {
       toast.success("Order successfullly created!");
 
       console.log("order response: ", result);
+
+      dispatch(clearCart());
 
       router.push("/confirmation");
     } catch (error: any) {
