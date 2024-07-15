@@ -98,7 +98,7 @@ const CartView = () => {
             <span className="font-semibold">Total:</span>
             <span className="text-xl font-bold text-green-500">${total}</span>
           </p>
-          <Link href={`/checkout`}>
+          <Link href={`/billing-info`}>
             <button
               className="bg-green-500 hover:bg-green-600 rounded-md text-white w-full font-medium p-2 center gap-2 disabled:bg-green-200"
               disabled={subtotal > 0 ? false : true}

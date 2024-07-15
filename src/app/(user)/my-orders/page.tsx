@@ -40,7 +40,7 @@ const OrderHistory: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {data.data.map((order: ISell) => {
+          {data?.data?.map((order: ISell) => {
             const orderDate = new Date(order.date);
             const dateStr = format(orderDate, "MMM, dd");
             return (
